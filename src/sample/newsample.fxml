@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox fx:id="stageHBox" alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewController">
+   <children>
+      <VBox fx:id="leftVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1268.0">
+         <HBox.margin>
+            <Insets right="652.0" />
+         </HBox.margin>
+         <children>
+            <MenuBar fx:id="menuBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="219.0">
+              <menus>
+                <Menu fx:id="menuTest" mnemonicParsing="false" text="Test">
+                  <items>
+                    <MenuItem fx:id="itemExit" mnemonicParsing="false" text="Exit" />
+                        <MenuItem fx:id="itemStart" mnemonicParsing="false" text="Start" />
+                  </items>
+                </Menu>
+                <Menu fx:id="menuView" mnemonicParsing="false" text="View">
+                  <items>
+                    <MenuItem fx:id="itemShowLogs" mnemonicParsing="false" text="Show All logs" />
+                        <MenuItem fx:id="temShowDescription" mnemonicParsing="false" text="Show description" />
+                  </items>
+                </Menu>
+                <Menu fx:id="menuSetting" mnemonicParsing="false" text="Setting">
+                  <items>
+                    <MenuItem fx:id="itemProfiles" mnemonicParsing="false" text="Profiles" />
+                        <MenuItem fx:id="itemParameters" mnemonicParsing="false" text="Parameters" />
+                        <MenuItem fx:id="itemLoopSettings" mnemonicParsing="false" text="Loop Settings" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem fx:id="itemAbout" mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+              </menus>
+               <VBox.margin>
+                  <Insets bottom="1015.0" right="1068.0" />
+               </VBox.margin>
+            </MenuBar>
+            <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="1268.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children></VBox>
+      <TextArea maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="951.0" prefWidth="602.0" style="-fx-background-color: #312E43; -fx-control-inner-background: #312E43; -fx-border-radius: 8px;" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="951.0" prefWidth="602.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <HBox.margin>
+            <Insets bottom="39.0" right="50.0" top="90.0" />
+         </HBox.margin>
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="602.0" style="-fx-background-color: #D6D5DF; -fx-border-radius: 8px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="TIME">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="73.0" top="33.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="83.0" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="MESSAGE" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="186.0" top="33.0" />
+                     </HBox.margin>
+                  </Label>
+               </children></HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
