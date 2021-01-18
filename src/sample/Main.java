@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -19,6 +20,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         //primaryStage.setFullScreen(true);
         primaryStage.setMaximized(true);
+        primaryStage.setMinWidth(900);
+        primaryStage.setMinHeight(700);
         primaryStage.show();
     }
 
