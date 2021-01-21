@@ -3,11 +3,17 @@
     -fx-background-color: #D6D5DF;
     -fx-cell-size: 66px;
     -fx-header-size: 77px;
+
     }
 .table-row-cell{
 -fx-cell-size: 66px;
 }
 .table-view .column-header {
 -fx-size: 77px;
+
 }
+.table-view .column-header .filler {
+-fx-background-radius: 8px;
+}
+
 
