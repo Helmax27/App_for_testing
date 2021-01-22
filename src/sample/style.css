@@ -3,11 +3,12 @@
     -fx-background-color: #D6D5DF;
     -fx-cell-size: 66px;
     -fx-header-size: 77px;
+ }
 
-    }
 .table-row-cell{
 -fx-cell-size: 66px;
 }
+
 .table-view .column-header {
 -fx-size: 77px;
 
@@ -15,14 +16,9 @@
 .table-view .column-header .filler {
 -fx-background-radius: 8px;
 }
-.menu-bar{
-  -fx-background-color: #peru;
-  -fx-border-color:  #f0cd90;
- -fx-border-width: 2px;
+.menu-item:focused {
+     -fx-background-color: #312E43;
 }
-.menu-bar .label {
-    -fx-font-size: 10 px;
-    -fx-text-fill: #dedede;
+.menu:hover {
+    -fx-background-color: #312E43;
 }
-.menu .label{
-     -fx-text-fill: black;}
