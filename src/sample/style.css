@@ -15,5 +15,14 @@
 .table-view .column-header .filler {
 -fx-background-radius: 8px;
 }
-
-
+.menu-bar{
+  -fx-background-color: #peru;
+  -fx-border-color:  #f0cd90;
+ -fx-border-width: 2px;
+}
+.menu-bar .label {
+    -fx-font-size: 10 px;
+    -fx-text-fill: #dedede;
+}
+.menu .label{
+     -fx-text-fill: black;}
