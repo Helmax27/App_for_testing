@@ -6,19 +6,16 @@
  }
 
 .table-row-cell{
--fx-cell-size: 66px;
+    -fx-cell-size: 66px;
 }
 
 .table-view .column-header {
--fx-size: 77px;
+    -fx-size: 77px;
 
 }
-.table-view .column-header .filler {
--fx-background-radius: 8px;
-}
-.menu-item:focused {
+.menu-item:focused, .menu:focused, .menu:showing {
      -fx-background-color: #312E43;
 }
-.menu:hover {
+.menu-item:hover, .menu:hover{
     -fx-background-color: #312E43;
 }
