@@ -7,16 +7,18 @@
 .table-view .column-header {
     -fx-background-color: transparent;
  }
+ .table-view .column-header .label{
+     -fx-alignment:CENTER
+ }
 
-.table-row-cell: odd{
-    -fx-cell-size: 66px;
-    -fx-background-color:  #454255;
-    -fx-table-cell-border-color:#454255;
+.table-row-cell: odd {
+    -fx-background-color: #454255;
+    -fx-table-cell-border-color: #454255;
 
 }
 .table-row-cell: even {
-    -fx-background-color:  #312E43;
-    -fx-table-cell-border-color:#312E43;
+    -fx-background-color: #312E43;
+    -fx-table-cell-border-color: #312E43;
     }
 
 .table-view .column-header {

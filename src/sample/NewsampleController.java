@@ -10,6 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 import sample.pojo.MessageTable;
 import sample.pojo.Testlist;
 
@@ -142,10 +144,29 @@ public class NewsampleController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initDate();
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, String >("name"));
+        nameTableColumn.setCellFactory(tc -> {
+            TableCell<Testlist, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(nameTableColumn.widthProperty().subtract(25));
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
+
         durationTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("duration"));
         passTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("pass"));
         failTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("fail"));
         parametersTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, String>("parameters"));
+        parametersTableColumn.setCellFactory(tc -> {
+            TableCell<Testlist, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(nameTableColumn.widthProperty().subtract(25));
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
 
         testTableView.setItems(testlistsData);
 
@@ -153,6 +174,8 @@ public class NewsampleController implements Initializable {
         messageColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("message"));
 
         statusTableView.setItems(messageTableData);
+
+
     }
 
     private void initDate() {
@@ -167,4 +190,5 @@ public class NewsampleController implements Initializable {
         messageTableData.add(new MessageTable("08.06.38.342", "finished"));
 
     }
+
 }

@@ -248,11 +248,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                       <columns>
-                      <TableColumn fx:id="nameTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.4}" resizable="false" text="NAME" />
-                      <TableColumn fx:id="durationTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" text="DURATION" />
-                        <TableColumn fx:id="passTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" text="PASS" />
-                        <TableColumn fx:id="failTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" text="FAIL" />
-                        <TableColumn fx:id="parametersTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.3}" resizable="false" style="-fx-background-radius: 0, 8px, 8px, 0;" text="PARAMETERS" />
+                      <TableColumn fx:id="nameTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.3}" resizable="false" text="NAME" />
+                      <TableColumn fx:id="durationTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="DURATION" />
+                        <TableColumn fx:id="passTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="PASS" />
+                        <TableColumn fx:id="failTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="FAIL" />
+                        <TableColumn fx:id="parametersTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.4}" resizable="false" text="PARAMETERS" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="45.0" />
@@ -267,8 +267,8 @@
                <children>
                   <TableView fx:id="statusTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="765.0" prefWidth="602.0" style="-fx-background-radius: 8px; -fx-background-color: #312E43; -fx-padding: 0px;" stylesheets="@textstyle.css">
                     <columns>
-                      <TableColumn fx:id="timeColumn" minWidth="30.0" prefWidth="202.0" text="TIME" />
-                      <TableColumn fx:id="messageColumn" minWidth="30.0" prefWidth="300.0" text="MESSAGE" />
+                      <TableColumn fx:id="timeColumn" minWidth="30.0" prefWidth="${statusTableView.width*0.3}" resizable="false" text="TIME" />
+                      <TableColumn fx:id="messageColumn" minWidth="30.0" prefWidth="${statusTableView.width*0.7}" resizable="false" text="MESSAGE" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="38.0" right="5.0" top="123.0" />

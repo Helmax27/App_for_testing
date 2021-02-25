@@ -8,14 +8,19 @@
     -fx-background-color: transparent;
  }
 
-.table-row-cell{
-    -fx-cell-size: 66px;
-}
 .table-row-cell: even {
     -fx-font-color: #D6D5DF;
+    -fx-table-cell-border-color: #FFFFFF;
+}
+.table-row-cell: odd {
+    -fx-background-color:  #E2E1E8;
+    -fx-table-cell-border-color: #E2E1E8;
 }
 .table-view .column-header {
     -fx-size: 77px;
+}
+.table-view .column-header .label{
+    -fx-alignment:CENTER
 }
 
 .menu-item:focused, .menu:focused, .menu:showing {
