@@ -29,3 +29,12 @@
 .menu-item:hover, .menu:hover{
     -fx-background-color: #312E43;
 }
+.radio-button:selected .radio .dot {
+    -fx-background-color:  #18418E;
+    -fx-background-insets: 0;
+}
+.radio-button:selected .radio {
+    -fx-border-color:  #18418E;
+    -fx-border-radius: 20px;
+}
+

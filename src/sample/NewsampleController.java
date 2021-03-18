@@ -3,19 +3,29 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.stage.*;
 import javafx.util.Callback;
 import sample.pojo.MessageTable;
 import sample.pojo.Testlist;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class NewsampleController implements Initializable {
@@ -82,6 +92,8 @@ public class NewsampleController implements Initializable {
     @FXML
     public TableView<Testlist> testTableView;
     @FXML
+    public TableColumn<Testlist, CheckBox> selectTableColumn;
+    @FXML
     public TableColumn<Testlist, String> nameTableColumn;
     @FXML
     public TableColumn<Testlist, Integer> durationTableColumn;
@@ -97,6 +109,8 @@ public class NewsampleController implements Initializable {
     public TableColumn timeColumn;
     @FXML
     public TableColumn messageColumn;
+    public ObservableList<Testlist> testlistsData = FXCollections.observableArrayList();
+    public ObservableList<MessageTable> messageTableData = FXCollections.observableArrayList();
 
     @FXML
     private void onClick(ActionEvent actionEvent) {
@@ -119,7 +133,27 @@ public class NewsampleController implements Initializable {
     }
 
     @FXML
-    private void profileAction(ActionEvent actionEvent) {
+    private void profileAction(ActionEvent actionEvent) throws IOException {
+        MenuItem menuItem = (MenuItem) actionEvent.getSource();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profiles.fxml"));
+
+        File prof = new File("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json");
+        if (!prof.exists()){
+            Writer writer= Files.newBufferedWriter(Paths.get("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"));
+        }
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Profiles");
+        stage.setScene(new Scene(root1, 742, 462));
+        stage.show();
+
     }
 
     @FXML
@@ -137,13 +171,11 @@ public class NewsampleController implements Initializable {
     @FXML
     private void aboutAction(ActionEvent actionEvent) {
     }
-    public ObservableList<Testlist> testlistsData= FXCollections.observableArrayList();
-    public ObservableList<MessageTable> messageTableData =FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initDate();
-        nameTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, String >("name"));
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, String>("name"));
         nameTableColumn.setCellFactory(tc -> {
             TableCell<Testlist, String> cell = new TableCell<>();
             Text text = new Text();
@@ -151,9 +183,10 @@ public class NewsampleController implements Initializable {
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             text.wrappingWidthProperty().bind(nameTableColumn.widthProperty().subtract(25));
             text.textProperty().bind(cell.itemProperty());
-            return cell ;
+            return cell;
         });
 
+        selectTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, CheckBox>("select"));
         durationTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("duration"));
         passTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("pass"));
         failTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("fail"));
@@ -165,7 +198,7 @@ public class NewsampleController implements Initializable {
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             text.wrappingWidthProperty().bind(nameTableColumn.widthProperty().subtract(25));
             text.textProperty().bind(cell.itemProperty());
-            return cell ;
+            return cell;
         });
 
         testTableView.setItems(testlistsData);
@@ -174,7 +207,6 @@ public class NewsampleController implements Initializable {
         messageColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("message"));
 
         statusTableView.setItems(messageTableData);
-
 
     }
 

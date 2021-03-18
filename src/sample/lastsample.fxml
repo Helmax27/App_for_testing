@@ -248,11 +248,12 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                       <columns>
+                        <TableColumn fx:id="selectTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="SELECT" />
                       <TableColumn fx:id="nameTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.3}" resizable="false" text="NAME" />
                       <TableColumn fx:id="durationTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="DURATION" />
                         <TableColumn fx:id="passTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="PASS" />
                         <TableColumn fx:id="failTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="FAIL" />
-                        <TableColumn fx:id="parametersTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.4}" resizable="false" text="PARAMETERS" />
+                        <TableColumn fx:id="parametersTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.3}" resizable="false" text="PARAMETERS" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="45.0" />

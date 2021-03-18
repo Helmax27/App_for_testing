@@ -1,18 +1,31 @@
 package sample.pojo;
 
+
+import javafx.scene.control.CheckBox;
+
 public class Testlist {
+    private CheckBox select;
     private String name;
     private int duration;
     private int pass;
     private int fail;
     private String parameters;
 
-    public Testlist(String name, int duration, int pass, int fail, String parameters) {
+    public Testlist( String name, int duration, int pass, int fail, String parameters) {
+        select = new CheckBox();
+        select.setSelected(false);
         this.name = name;
         this.duration = duration;
         this.pass = pass;
         this.fail = fail;
         this.parameters = parameters;
+    }
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(Boolean select) {
+        this.select.setSelected(select);
     }
 
     public String getName() {

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="462.0" prefWidth="742.0" style="-fx-border-radius: 8px; -fx-background-radius: 8px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ProfilesController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="462.0" prefWidth="742.0" style="-fx-background-radius: 8px; -fx-border-radius: 8px;">
+        <items>
+          <AnchorPane prefHeight="462.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7;">
+               <children>
+                  <ListView layoutY="64.0" prefHeight="397.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7;" AnchorPane.topAnchor="64.0" />
+                  <Label fx:id="pupLabelProfileLable" layoutX="104.0" layoutY="42.0" text="PROFILE LIST" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="38.0">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="buttonAddNewProfile" layoutX="60.0" layoutY="408.0" mnemonicParsing="false" onAction="#onAddNewProfile" style="-fx-background-color: #F2F3F7;" text="Add Profile" textFill="#18418e" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/carbon_add-alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+          <AnchorPane prefHeight="462.0" prefWidth="506.0" style="-fx-background-color: #FFFFFF;">
+               <children>
+                  <Label fx:id="labelNewProfileName" alignment="CENTER" contentDisplay="TOP" layoutX="28.0" layoutY="91.0" text="Profile Name:" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="116.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelConnectionType" alignment="CENTER" contentDisplay="TOP" layoutX="28.0" layoutY="138.0" text="Connection Type:" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="179.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelPort" alignment="CENTER" contentDisplay="TOP" layoutX="28.0" layoutY="276.0" text="Port:" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="239.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="buttonCancelSettings" layoutX="100.0" layoutY="366.0" mnemonicParsing="false" onAction="#onCancelProfileSettings" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF;" text="Cancel" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="393.0">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonSaveSettings" layoutX="268.0" layoutY="366.0" mnemonicParsing="false" onAction="#onSaveProfileSettings" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF;" text="Save" AnchorPane.leftAnchor="332.0" AnchorPane.topAnchor="393.0">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <RadioButton fx:id="radioButtonTCP" layoutX="363.0" layoutY="183.0" mnemonicParsing="false" onAction="#tcpChecked" stylesheets="@style.css" text="TCP" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="179.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="radioButtonCOM" layoutX="205.0" layoutY="181.0" mnemonicParsing="false" onAction="#comChecked" selected="true" stylesheets="@style.css" text="COM" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="179.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                  </RadioButton>
+                  <Label fx:id="pupLabelParameters" layoutX="57.0" layoutY="27.0" text="PARAMETERS" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="38.0">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="taforNewProfileName" layoutX="210.0" layoutY="115.0" onInputMethodTextChanged="#initialize" prefHeight="43.0" prefWidth="213.0" style="-fx-alignment: center; -fx-background-color: #F2F3F7; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: #312E43; -fx-border-size: 2px; -fx-padding: 0;" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="106.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="taPort" layoutX="226.0" layoutY="238.0" prefHeight="43.0" prefWidth="97.0" style="-fx-alignment: center; -fx-background-color: #F2F3F7; -fx-background-radius: 8px; -fx-border-color: #312E43; -fx-border-radius: 8px; -fx-border-size: 2px;" AnchorPane.leftAnchor="225.0" AnchorPane.topAnchor="229.0">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font></TextField>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

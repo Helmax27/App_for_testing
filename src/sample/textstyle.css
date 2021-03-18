@@ -27,5 +27,14 @@
 .table-row-cell .text {
     -fx-fill: #FFFFFF;
 }
+.text-area {
+    text-area-background:  #F2F3F7 ;
+}
 
-
+.text-area .content {
+    -fx-background-color: text-area-background ;
+    -fx-font-alignment: center;
+}
+.text-area *.text {
+    -fx-text-alignment: center;
+}
