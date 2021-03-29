@@ -1,21 +1,5 @@
 package sample;
 
-import com.google.gson.Gson;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-public class Profile {
-    public ArrayList<HashMap> readProfiles() throws FileNotFoundException {
-        ArrayList<HashMap> profiles = new ArrayList<>();
-        Gson gson = new Gson();
-        Profilesdetails profilesdetails=gson.fromJson(new FileReader("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"), Profilesdetails.class);
-
-        return profiles;
-    }
-}
 
 class Profilesdetails {
     public String profileName;

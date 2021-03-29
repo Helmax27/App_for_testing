@@ -140,6 +140,8 @@ public class NewsampleController implements Initializable {
         File prof = new File("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json");
         if (!prof.exists()){
             Writer writer= Files.newBufferedWriter(Paths.get("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"));
+            writer.write("[]");
+            writer.close();
         }
         Parent root1 = null;
         try {

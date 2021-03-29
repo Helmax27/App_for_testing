@@ -37,4 +37,10 @@
     -fx-border-color:  #18418E;
     -fx-border-radius: 20px;
 }
+.list-cell {
+	-fx-alignment: center ;
+	-fx-background-color:  #F2F3F7;
+	-fx-font-family: "Calibri";
+	-fx-font-size: 20px;
+}
 

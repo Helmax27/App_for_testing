@@ -11,7 +11,7 @@
         <items>
           <AnchorPane prefHeight="462.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7;">
                <children>
-                  <ListView layoutY="64.0" prefHeight="397.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7;" AnchorPane.topAnchor="64.0" />
+                  <ListView fx:id="lv" layoutY="64.0" prefHeight="397.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7; -fx-alignment: center;" stylesheets="@style.css" AnchorPane.topAnchor="64.0" />
                   <Label fx:id="pupLabelProfileLable" layoutX="104.0" layoutY="42.0" text="PROFILE LIST" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="38.0">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
