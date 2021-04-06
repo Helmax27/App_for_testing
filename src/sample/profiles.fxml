@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -11,13 +12,13 @@
         <items>
           <AnchorPane prefHeight="462.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7;">
                <children>
-                  <ListView fx:id="lv" layoutY="64.0" prefHeight="397.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7; -fx-alignment: center;" stylesheets="@style.css" AnchorPane.topAnchor="64.0" />
+                  <ListView fx:id="lv" layoutY="64.0" onMouseClicked="#handleMouseClick" prefHeight="340.0" prefWidth="236.0" style="-fx-background-color: #F2F3F7; -fx-alignment: center;" stylesheets="@style.css" AnchorPane.topAnchor="64.0" />
                   <Label fx:id="pupLabelProfileLable" layoutX="104.0" layoutY="42.0" text="PROFILE LIST" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="38.0">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="buttonAddNewProfile" layoutX="60.0" layoutY="408.0" mnemonicParsing="false" onAction="#onAddNewProfile" style="-fx-background-color: #F2F3F7;" text="Add Profile" textFill="#18418e" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0">
+                  <Button fx:id="buttonAddNewProfile" layoutX="60.0" layoutY="408.0" mnemonicParsing="false" onAction="#onAddNewProfile" style="-fx-background-color: #F2F3F7;" stylesheets="@style.css" text="Add Profile" textFill="#18418e" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -28,6 +29,9 @@
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
+                     <effect>
+                        <Blend />
+                     </effect>
                   </Button>
                </children></AnchorPane>
           <AnchorPane prefHeight="462.0" prefWidth="506.0" style="-fx-background-color: #FFFFFF;">
@@ -47,15 +51,21 @@
                         <Font name="Calibri" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="buttonCancelSettings" layoutX="100.0" layoutY="366.0" mnemonicParsing="false" onAction="#onCancelProfileSettings" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF;" text="Cancel" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="393.0">
+                  <Button fx:id="buttonCancelSettings" layoutX="100.0" layoutY="366.0" mnemonicParsing="false" onAction="#onCancelProfileSettings" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF;" stylesheets="@style.css" text="Cancel" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="393.0">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
+                     <effect>
+                        <Blend mode="COLOR_BURN" opacity="0.27" />
+                     </effect>
                   </Button>
-                  <Button fx:id="buttonSaveSettings" layoutX="268.0" layoutY="366.0" mnemonicParsing="false" onAction="#onSaveProfileSettings" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF;" text="Save" AnchorPane.leftAnchor="332.0" AnchorPane.topAnchor="393.0">
+                  <Button fx:id="buttonSaveSettings" layoutX="268.0" layoutY="366.0" mnemonicParsing="false" onAction="#onSaveProfileSettings" prefHeight="51.0" prefWidth="116.0" style="-fx-background-color: #FFFFFF;" stylesheets="@style.css" text="Save" AnchorPane.leftAnchor="332.0" AnchorPane.topAnchor="393.0">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
+                     <effect>
+                        <Blend mode="BLUE" />
+                     </effect>
                   </Button>
                   <RadioButton fx:id="radioButtonTCP" layoutX="363.0" layoutY="183.0" mnemonicParsing="false" onAction="#tcpChecked" stylesheets="@style.css" text="TCP" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="179.0">
                      <font>

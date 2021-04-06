@@ -43,4 +43,27 @@
 	-fx-font-family: "Calibri";
 	-fx-font-size: 20px;
 }
+.list-cell: selected {
+	-fx-background-color: #18418E;
+	-fx-text-fill: #FFFFFF;
+}
+.list-cell: hover {
+	-fx-background-color: #18418E;
+	-fx-text-fill: #FFFFFF;
+}
+
+.list-cell: cell.focused {
+	-fx-background-color: #18418E;
+	-fx-text-fill: #FFFFFF;
+}
+
+.button: pressed {
+    -fx-background-color: #000000;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 8px;
+}
+.button:  {
+    -fx-background-color:  #FFFFFF;
+    -fx-background-radius: 8px;
+}
 

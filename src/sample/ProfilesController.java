@@ -5,15 +5,21 @@ import com.google.gson.GsonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javafx.scene.layout.Pane;
 
 public class ProfilesController {
+    final ListView listv = new ListView(FXCollections.observableList(Arrays.asList()));
     @FXML
     public Label pupLabelProfileLable;
     @FXML
@@ -40,14 +46,20 @@ public class ProfilesController {
     public RadioButton radioButtonTCP;
     @FXML
     public Label pupLabelParameters;
-
     public ArrayList<Profilesdetails> profiles;
     public String currentProfileName;
 
+
+    //Creating a new Profile after click on the Add Profile button
     @FXML
     public void onAddNewProfile(ActionEvent actionEvent) throws IOException {
+        taPort.setDisable(false);
+        taforNewProfileName.setDisable(false);
+        radioButtonCOM.setDisable(false);
+        radioButtonTCP.setDisable(false);
         ObservableList<String> profileNames = lv.getItems();
         boolean count = true;
+        //A new profile is created with a temporary name
         //TODO check that we didn't have temp profile
         for (String name : profileNames) {
             if (name.equals("temp")) {
@@ -56,20 +68,25 @@ public class ProfilesController {
                 count = false;
             }
         }
-        if (count){
+        if (count) {
             profileNames.add("temp");
             lv.setItems(profileNames);
             currentProfileName = "temp";
         }
 
+        lv.getSelectionModel().selectLast();
+
+
     }
 
+    //Closing the profile window
     @FXML
     public void onCancelProfileSettings(ActionEvent actionEvent) {
         Stage stage = (Stage) buttonCancelSettings.getScene().getWindow();
         stage.close();
     }
 
+    //Creating alert alerts
     private void showAlert(String title, String text) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -77,8 +94,10 @@ public class ProfilesController {
         alert.showAndWait();
     }
 
+    //Saving the entered settings after clicking on the Save button
     @FXML
     public void onSaveProfileSettings(ActionEvent actionEvent) throws FileNotFoundException {
+        //reading data
         int port = Integer.parseInt(taPort.getText());
         String portType = "";
         if (radioButtonCOM.isSelected()) {
@@ -86,20 +105,24 @@ public class ProfilesController {
         } else {
             portType = "TCP";
         }
+        //Profile name validation
         if (currentProfileName.equals("temp")) {
             ObservableList<String> profileNames = lv.getItems();
             int count = 0;
             for (String name : profileNames) {
+                //Checking that the profile is not saved with temp name
                 if (taforNewProfileName.getText().equals(name)) {
                     //TODO alert window
-                    showAlert("Warning alert", "This name already exists, please change");
+                    showAlert("Warning alert", "The profile is not saved with temp name, please change");
                     count += 1;
                 }
             }
+            //Save the profile with a unique name
             if (count == 0) profiles.add(new Profilesdetails(taforNewProfileName.getText(), portType, port));
         } else {
             ObservableList<String> profileNames = lv.getItems();
             int count = 0;
+            //Checking that the profile name  is unique
             if (!currentProfileName.equals(taforNewProfileName.getText())) {
                 for (String name : profileNames) {
                     if (taforNewProfileName.getText().equals(name)) {
@@ -179,6 +202,40 @@ public class ProfilesController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        lv.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                String item = (String)lv.getSelectionModel().getSelectedItem();
+                taPort.setDisable(false);
+                taforNewProfileName.setDisable(false);
+                radioButtonCOM.setDisable(false);
+                radioButtonTCP.setDisable(false);
+                for (Profilesdetails profile:profiles){
+                    if (profile.profileName.equals(item)){
+                        currentProfileName = profile.getProfileName();
+                        taPort.setText(String.valueOf(profile.getPort()));
+                        taforNewProfileName.setText(profile.getProfileName());
+                        if (profile.getConnectionType().equals("TCP")){
+                            radioButtonTCP.setSelected(true);
+                            radioButtonCOM.setSelected(false);
+                        }
+                        else{
+                            radioButtonCOM.setSelected(true);
+                            radioButtonTCP.setSelected(false);
+                        }
+
+                    }
+                }
+            }
+        });
+
+
+        taPort.setDisable(true);
+        taforNewProfileName.setDisable(true);
+        radioButtonCOM.setDisable(true);
+        radioButtonTCP.setDisable(true);
     }
 
     public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
@@ -190,4 +247,16 @@ public class ProfilesController {
         }
         return profiles;
     }
+
+    @FXML
+    public void handleMouseClick(MouseEvent arg0) {
+        Object item = lv.getSelectionModel().getSelectedItem();
+        taPort.setDisable(false);
+        taforNewProfileName.setDisable(false);
+        radioButtonCOM.setDisable(false);
+        radioButtonTCP.setDisable(false);
+
+
+    }
+
 }
