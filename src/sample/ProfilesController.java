@@ -54,13 +54,17 @@ public class ProfilesController {
     @FXML
     public void onAddNewProfile(ActionEvent actionEvent) throws IOException {
         taPort.setDisable(false);
+        taPort.setText("0000");
+        int port = Integer.parseInt(taPort.getText());
+        taPort.setText("");
         taforNewProfileName.setDisable(false);
+        taforNewProfileName.setText("temp");
         radioButtonCOM.setDisable(false);
         radioButtonTCP.setDisable(false);
         ObservableList<String> profileNames = lv.getItems();
         boolean count = true;
         //A new profile is created with a temporary name
-        //TODO check that we didn't have temp profile
+        //Check that we didn't have temp profile
         for (String name : profileNames) {
             if (name.equals("temp")) {
                 //TODO alert window
@@ -112,7 +116,7 @@ public class ProfilesController {
             for (String name : profileNames) {
                 //Checking that the profile is not saved with temp name
                 if (taforNewProfileName.getText().equals(name)) {
-                    //TODO alert window
+                    //Alert window
                     showAlert("Warning alert", "The profile is not saved with temp name, please change");
                     count += 1;
                 }
@@ -126,7 +130,7 @@ public class ProfilesController {
             if (!currentProfileName.equals(taforNewProfileName.getText())) {
                 for (String name : profileNames) {
                     if (taforNewProfileName.getText().equals(name)) {
-                        //TODO alert window
+                        //Alert window
                         showAlert("Warning alert", "This name already exists, please change");
                         count += 1;
                     }
@@ -143,7 +147,7 @@ public class ProfilesController {
             }
         }
 
-        //TODO save profiles to json file and update listview
+        //Save profiles to json file and update listview
         Gson gson = new Gson();
         try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
             gson.toJson(profiles, writer);
@@ -157,6 +161,16 @@ public class ProfilesController {
         taPort.setTextFormatter(null);
         initDate();
 
+    }
+
+    //Delete Profile
+    public void delProfile (ActionEvent actionEvent, String currentProfileName){
+        for (Profilesdetails profile : profiles){
+            if (profile.profileName.equals(currentProfileName)) {
+                profiles.remove(profile);
+            }
+        }
+        initDate();
     }
 
     @FXML
