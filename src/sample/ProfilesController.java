@@ -54,11 +54,11 @@ public class ProfilesController {
     @FXML
     public void onAddNewProfile(ActionEvent actionEvent) throws IOException {
         taPort.setDisable(false);
-        taPort.setText("0000");
-        int port = Integer.parseInt(taPort.getText());
-        taPort.setText("");
+        taPort.clear();
+        //int port = Integer.parseInt(taPort.getText());
+        //taPort.setText("");
         taforNewProfileName.setDisable(false);
-        taforNewProfileName.setText("temp");
+        taforNewProfileName.clear();
         radioButtonCOM.setDisable(false);
         radioButtonTCP.setDisable(false);
         ObservableList<String> profileNames = lv.getItems();
@@ -79,6 +79,7 @@ public class ProfilesController {
         }
 
         lv.getSelectionModel().selectLast();
+        lv.scrollTo(profiles.size());
 
 
     }
@@ -188,14 +189,14 @@ public class ProfilesController {
     @FXML
     public void initialize() {
         taforNewProfileName.setTextFormatter(new TextFormatter<Integer>(change -> {
-            if (!(change.getControlNewText().matches("[a-zA-Z_ 0-9]{1,20}"))) {
+            if (!(change.getControlNewText().matches("[a-zA-Z_ 0-9]{0,20}"))) {
                 return null;
             } else {
                 return change;
             }
         }));
         taPort.setTextFormatter(new TextFormatter<Integer>(change -> {
-            if (!(change.getControlNewText().matches("[0-9]{1,4}"))) {
+            if (!(change.getControlNewText().matches("[0-9]{0,4}"))) {
                 return null;
             } else {
                 return change;
