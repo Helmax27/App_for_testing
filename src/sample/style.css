@@ -48,13 +48,13 @@
 	-fx-text-fill: #FFFFFF;
 }
 .list-cell: hover {
-	-fx-background-color: #18418E;
-	-fx-text-fill: #FFFFFF;
+	-fx-background-color: #D6D5DF;
+	-fx-text-fill: #000000;
 }
 
 .list-cell: cell.focused {
-	-fx-background-color: #18418E;
-	-fx-text-fill: #FFFFFF;
+	-fx-background-color: #D6D5DF;
+	-fx-text-fill: #000000;
 }
 
 .button: pressed {

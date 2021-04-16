@@ -113,6 +113,9 @@ public class NewsampleController implements Initializable {
     public ObservableList<MessageTable> messageTableData = FXCollections.observableArrayList();
 
     @FXML
+    public ListView buttonList;
+
+    @FXML
     private void onClick(ActionEvent actionEvent) {
     }
 
@@ -187,6 +190,8 @@ public class NewsampleController implements Initializable {
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });
+
+
 
         selectTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, CheckBox>("select"));
         durationTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("duration"));

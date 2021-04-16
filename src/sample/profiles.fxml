@@ -91,6 +91,14 @@
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font></TextField>
+                  <Button fx:id="delProfileButton" alignment="CENTER" layoutX="435.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delProfile" prefHeight="25.12" prefWidth="26.0" style="-fx-background-color: #FFFFFF;" text="Delete" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="37.0">
+                     <graphic>
+                        <ImageView fitHeight="25.12" fitWidth="23.25" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@assets/Vector.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children></AnchorPane>
         </items>
       </SplitPane>

@@ -1,22 +1,22 @@
 package sample;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javafx.scene.layout.Pane;
+import java.util.Optional;
 
 public class ProfilesController {
     final ListView listv = new ListView(FXCollections.observableList(Arrays.asList()));
@@ -24,6 +24,8 @@ public class ProfilesController {
     public Label pupLabelProfileLable;
     @FXML
     public Button buttonAddNewProfile;
+    @FXML
+    public Button delProfileButton;
     @FXML
     public Label labelNewProfileName;
     @FXML
@@ -77,13 +79,9 @@ public class ProfilesController {
             lv.setItems(profileNames);
             currentProfileName = "temp";
         }
-
         lv.getSelectionModel().selectLast();
         lv.scrollTo(profiles.size());
-
-
     }
-
     //Closing the profile window
     @FXML
     public void onCancelProfileSettings(ActionEvent actionEvent) {
@@ -103,51 +101,55 @@ public class ProfilesController {
     @FXML
     public void onSaveProfileSettings(ActionEvent actionEvent) throws FileNotFoundException {
         //reading data
-        int port = Integer.parseInt(taPort.getText());
-        String portType = "";
-        if (radioButtonCOM.isSelected()) {
-            portType = "COM";
+        //Verifying that port data end profile name are entered
+        if (taPort.getText().equals("") | taforNewProfileName.getText().equals("")) {
+            showAlert("Warning alert", "The profile is not saved without name or without port value, please enter data");
         } else {
-            portType = "TCP";
-        }
-        //Profile name validation
-        if (currentProfileName.equals("temp")) {
-            ObservableList<String> profileNames = lv.getItems();
-            int count = 0;
-            for (String name : profileNames) {
-                //Checking that the profile is not saved with temp name
-                if (taforNewProfileName.getText().equals(name)) {
-                    //Alert window
-                    showAlert("Warning alert", "The profile is not saved with temp name, please change");
-                    count += 1;
-                }
+            int port = Integer.parseInt(taPort.getText());
+            String portType = "";
+            if (radioButtonCOM.isSelected()) {
+                portType = "COM";
+            } else {
+                portType = "TCP";
             }
-            //Save the profile with a unique name
-            if (count == 0) profiles.add(new Profilesdetails(taforNewProfileName.getText(), portType, port));
-        } else {
-            ObservableList<String> profileNames = lv.getItems();
-            int count = 0;
-            //Checking that the profile name  is unique
-            if (!currentProfileName.equals(taforNewProfileName.getText())) {
+            //Profile name validation
+            if (currentProfileName.equals("temp")) {
+                ObservableList<String> profileNames = lv.getItems();
+                int count = 0;
                 for (String name : profileNames) {
+                    //Checking that the profile is not saved with temp name
                     if (taforNewProfileName.getText().equals(name)) {
                         //Alert window
-                        showAlert("Warning alert", "This name already exists, please change");
+                        showAlert("Warning alert", "The profile is not saved with temp name, please change");
                         count += 1;
                     }
                 }
-            }
-            if (count == 0) {
-                for (Profilesdetails profile : profiles) {
-                    if (profile.profileName.equals(currentProfileName)) {
-                        profile.setProfileName(taforNewProfileName.getText());
-                        profile.setPort(port);
-                        profile.setConnectionType(portType);
+                //Save the profile with a unique name
+                if (count == 0) profiles.add(new Profilesdetails(taforNewProfileName.getText(), portType, port));
+            } else {
+                ObservableList<String> profileNames = lv.getItems();
+                int count = 0;
+                //Checking that the profile name  is unique
+                if (!currentProfileName.equals(taforNewProfileName.getText())) {
+                    for (String name : profileNames) {
+                        if (taforNewProfileName.getText().equals(name)) {
+                            //Alert window
+                            showAlert("Warning alert", "This name already exists, please change");
+                            count += 1;
+                        }
+                    }
+                }
+                if (count == 0) {
+                    for (Profilesdetails profile : profiles) {
+                        if (profile.profileName.equals(currentProfileName)) {
+                            profile.setProfileName(taforNewProfileName.getText());
+                            profile.setPort(port);
+                            profile.setConnectionType(portType);
+                        }
                     }
                 }
             }
         }
-
         //Save profiles to json file and update listview
         Gson gson = new Gson();
         try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
@@ -157,20 +159,29 @@ public class ProfilesController {
             e.printStackTrace();
         }
         readProfiles();
-
-        taforNewProfileName.setTextFormatter(null);
-        taPort.setTextFormatter(null);
+        //taforNewProfileName.setTextFormatter(null);
+        //taPort.setTextFormatter(null);
         initDate();
-
     }
 
     //Delete Profile
-    public void delProfile (ActionEvent actionEvent, String currentProfileName){
-        for (Profilesdetails profile : profiles){
+    @FXML
+    public void delProfile(ActionEvent actionEvent, String currentProfileName) throws FileNotFoundException {
+        showConfirmation();
+        for (Profilesdetails profile : profiles) {
             if (profile.profileName.equals(currentProfileName)) {
                 profiles.remove(profile);
             }
         }
+        //Save profiles to json file and update listview
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
+            gson.toJson(profiles, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        readProfiles();
         initDate();
     }
 
@@ -217,26 +228,24 @@ public class ProfilesController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         lv.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent event) {
-                String item = (String)lv.getSelectionModel().getSelectedItem();
+                String item = (String) lv.getSelectionModel().getSelectedItem();
                 taPort.setDisable(false);
                 taforNewProfileName.setDisable(false);
                 radioButtonCOM.setDisable(false);
                 radioButtonTCP.setDisable(false);
-                for (Profilesdetails profile:profiles){
-                    if (profile.profileName.equals(item)){
+                for (Profilesdetails profile : profiles) {
+                    if (profile.profileName.equals(item)) {
                         currentProfileName = profile.getProfileName();
                         taPort.setText(String.valueOf(profile.getPort()));
                         taforNewProfileName.setText(profile.getProfileName());
-                        if (profile.getConnectionType().equals("TCP")){
+                        if (profile.getConnectionType().equals("TCP")) {
                             radioButtonTCP.setSelected(true);
                             radioButtonCOM.setSelected(false);
-                        }
-                        else{
+                        } else {
                             radioButtonCOM.setSelected(true);
                             radioButtonTCP.setSelected(false);
                         }
@@ -245,7 +254,6 @@ public class ProfilesController {
                 }
             }
         });
-
 
         taPort.setDisable(true);
         taforNewProfileName.setDisable(true);
@@ -270,8 +278,13 @@ public class ProfilesController {
         taforNewProfileName.setDisable(false);
         radioButtonCOM.setDisable(false);
         radioButtonTCP.setDisable(false);
+    }
 
-
+    private void showConfirmation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Profile");
+        alert.setHeaderText("Are you sure want to move this Profile?");
+        Optional<ButtonType> option = alert.showAndWait();
     }
 
 }
