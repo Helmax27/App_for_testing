@@ -156,10 +156,16 @@
                         <Insets left="80.0" top="40.0" />
                      </VBox.margin>
                   </Label>
-                  <ListView fx:id="buttonList" prefHeight="823.0" prefWidth="254.0" />
+                  <ListView fx:id="buttonList" nodeOrientation="LEFT_TO_RIGHT" prefHeight="664.0" prefWidth="245.0" style="-fx-background-color: #F2F3F7;" stylesheets="@lvstyle.css" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets left="40.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="25.0" />
+                     </padding></ListView>
                   <Button fx:id="profile1Button" mnemonicParsing="false" prefHeight="86.0" prefWidth="166.0" style="-fx-background-radius: 8px; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);" text="Profile1">
                      <VBox.margin>
-                        <Insets left="44.0" top="60.0" />
+                        <Insets bottom="25.0" left="44.0" top="60.0" />
                      </VBox.margin>
                      <font>
                         <Font name="Calibri Bold" size="26.0" />

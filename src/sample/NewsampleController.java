@@ -1,9 +1,9 @@
 package sample;
 
+import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,18 +14,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.*;
-import javafx.util.Callback;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sample.pojo.MessageTable;
 import sample.pojo.Testlist;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class NewsampleController implements Initializable {
@@ -111,6 +112,7 @@ public class NewsampleController implements Initializable {
     public TableColumn messageColumn;
     public ObservableList<Testlist> testlistsData = FXCollections.observableArrayList();
     public ObservableList<MessageTable> messageTableData = FXCollections.observableArrayList();
+    public ArrayList<Profilesdetails> profiles;
 
     @FXML
     public ListView buttonList;
@@ -141,8 +143,8 @@ public class NewsampleController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profiles.fxml"));
 
         File prof = new File("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json");
-        if (!prof.exists()){
-            Writer writer= Files.newBufferedWriter(Paths.get("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"));
+        if (!prof.exists()) {
+            Writer writer = Files.newBufferedWriter(Paths.get("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"));
             writer.write("[]");
             writer.close();
         }
@@ -154,7 +156,6 @@ public class NewsampleController implements Initializable {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        //stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Profiles");
         stage.setScene(new Scene(root1, 742, 462));
         stage.show();
@@ -191,8 +192,6 @@ public class NewsampleController implements Initializable {
             return cell;
         });
 
-
-
         selectTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, CheckBox>("select"));
         durationTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("duration"));
         passTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("pass"));
@@ -215,6 +214,29 @@ public class NewsampleController implements Initializable {
 
         statusTableView.setItems(messageTableData);
 
+        try {
+            profiles = readProfiles();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObservableList<String> profileNames = FXCollections.observableArrayList();
+        for (Profilesdetails pr : profiles) {
+            profileNames.add(pr.profileName);
+        }
+
+        buttonList.setItems(profileNames);
+        buttonList.setCellFactory(param -> new XCell());
+
+    }
+
+    public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
+        ArrayList<Profilesdetails> profiles = new ArrayList<>();
+        Gson gson = new Gson();
+        Profilesdetails[] profilesdetails = gson.fromJson(new FileReader("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"), Profilesdetails[].class);
+        for (Profilesdetails pr : profilesdetails) {
+            profiles.add(pr);
+        }
+        return profiles;
     }
 
     private void initDate() {
@@ -228,6 +250,35 @@ public class NewsampleController implements Initializable {
         messageTableData.add(new MessageTable("08.06.38.341", "reading"));
         messageTableData.add(new MessageTable("08.06.38.342", "finished"));
 
+    }
+
+    static class XCell extends ListCell<String> {
+        Button button = new Button();
+
+
+        public XCell() {
+            super();
+
+            button.setOnAction(event -> System.out.println("Button pressed"));
+            button.setPrefSize(166, 86);
+            button.setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+            button.setStyle("-fx-background: transparent");
+
+
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(null);
+            setGraphic(null);
+
+            if (item != null && !empty) {
+                button.setText(item);
+                setGraphic(button);
+
+            }
+        }
     }
 
 }

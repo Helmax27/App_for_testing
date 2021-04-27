@@ -43,7 +43,7 @@
 	-fx-font-family: "Calibri";
 	-fx-font-size: 20px;
 }
-.list-cell: selected {
+.list-cell: focused {
 	-fx-background-color: #18418E;
 	-fx-text-fill: #FFFFFF;
 }
@@ -58,12 +58,18 @@
 }
 
 .button: pressed {
-    -fx-background-color: #000000;
+    -fx-background-color: #18418E;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 8px;
 }
-.button:  {
+.button: focused {
+    -fx-background-color: #D6D5DF;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 8px;
+}
+.button {
     -fx-background-color:  #FFFFFF;
     -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
 }
 

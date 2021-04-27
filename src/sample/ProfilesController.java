@@ -51,14 +51,22 @@ public class ProfilesController {
     public ArrayList<Profilesdetails> profiles;
     public String currentProfileName;
 
+    private boolean showConfirmation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Profile");
+        alert.setHeaderText("Are you sure want to move this Profile?");
+        Optional<ButtonType> option = alert.showAndWait();
+        if (option.get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
+    }
 
     //Creating a new Profile after click on the Add Profile button
     @FXML
     public void onAddNewProfile(ActionEvent actionEvent) throws IOException {
         taPort.setDisable(false);
         taPort.clear();
-        //int port = Integer.parseInt(taPort.getText());
-        //taPort.setText("");
         taforNewProfileName.setDisable(false);
         taforNewProfileName.clear();
         radioButtonCOM.setDisable(false);
@@ -69,7 +77,7 @@ public class ProfilesController {
         //Check that we didn't have temp profile
         for (String name : profileNames) {
             if (name.equals("temp")) {
-                //TODO alert window
+                //Alert window
                 showAlert("Warning alert", "Profile cannot be saved with the temp name, please change");
                 count = false;
             }
@@ -82,6 +90,7 @@ public class ProfilesController {
         lv.getSelectionModel().selectLast();
         lv.scrollTo(profiles.size());
     }
+
     //Closing the profile window
     @FXML
     public void onCancelProfileSettings(ActionEvent actionEvent) {
@@ -159,30 +168,29 @@ public class ProfilesController {
             e.printStackTrace();
         }
         readProfiles();
-        //taforNewProfileName.setTextFormatter(null);
-        //taPort.setTextFormatter(null);
         initDate();
     }
 
     //Delete Profile
     @FXML
-    public void delProfile(ActionEvent actionEvent, String currentProfileName) throws FileNotFoundException {
-        showConfirmation();
-        for (Profilesdetails profile : profiles) {
-            if (profile.profileName.equals(currentProfileName)) {
-                profiles.remove(profile);
+    public void delProfile(ActionEvent actionEvent) throws FileNotFoundException {
+        if (showConfirmation()) {
+            for (Profilesdetails profile : profiles) {
+                if (profile.profileName.equals(currentProfileName)) {
+                    profiles.remove(profile);
+                    break;
+                }
             }
+            //Save profiles to json file and update listview
+            Gson gson = new Gson();
+            try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
+                gson.toJson(profiles, writer);
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            initDate();
         }
-        //Save profiles to json file and update listview
-        Gson gson = new Gson();
-        try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
-            gson.toJson(profiles, writer);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        readProfiles();
-        initDate();
     }
 
     @FXML
@@ -279,12 +287,4 @@ public class ProfilesController {
         radioButtonCOM.setDisable(false);
         radioButtonTCP.setDisable(false);
     }
-
-    private void showConfirmation() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Profile");
-        alert.setHeaderText("Are you sure want to move this Profile?");
-        Optional<ButtonType> option = alert.showAndWait();
-    }
-
 }

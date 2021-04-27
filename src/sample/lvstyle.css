@@ -1,0 +1,42 @@
+.list-view .list-cell {
+    -fx-padding: 20px, 0px, 0px, 0px ;
+	-fx-background-color:  #F2F3F7;
+	-fx-background-radius: 8px;
+	-fx-font-size: 26px;
+    -fx-font-family: Calibri;
+    -fx-font-style: Bold;
+    -fx-text-fill: #000000;
+}
+
+.list-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.button  {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);
+    -fx-font-size: 26px;
+    -fx-font-family: Calibri;
+    -fx-font-style: Bold;
+
+}
+.button: focused {
+    -fx-background-color: #18418E;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);
+    -fx-font-size: 26px;
+    -fx-font-family: Calibri;
+    -fx-font-style: Bold;
+    -fx-text-fill: #FFFFFF;
+}
+.button: hover {
+    -fx-background-color: #D6D5DF;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);
+    -fx-font-size: 26px;
+    -fx-font-family: Calibri;
+    -fx-font-style: Bold;
+    -fx-text-fill: #000000;
+}
