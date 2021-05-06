@@ -18,7 +18,6 @@ public class Main extends Application {
         scene.getStylesheets().add("style.css");
 
         primaryStage.setScene(scene);
-        //primaryStage.setFullScreen(true);
         primaryStage.setMaximized(true);
         primaryStage.setMinWidth(900);
         primaryStage.setMinHeight(700);

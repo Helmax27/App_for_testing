@@ -1,6 +1,8 @@
 package sample;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,8 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,6 +27,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewsampleController implements Initializable {
@@ -113,12 +114,14 @@ public class NewsampleController implements Initializable {
     public ObservableList<Testlist> testlistsData = FXCollections.observableArrayList();
     public ObservableList<MessageTable> messageTableData = FXCollections.observableArrayList();
     public ArrayList<Profilesdetails> profiles;
+    public String activeProfile;
 
     @FXML
     public ListView buttonList;
 
     @FXML
     private void onClick(ActionEvent actionEvent) {
+        return ;
     }
 
     @FXML
@@ -126,7 +129,59 @@ public class NewsampleController implements Initializable {
     }
 
     @FXML
-    private void startAction(ActionEvent actionEvent) {
+    private void startAction(ActionEvent actionEvent) throws InterruptedException {
+        int activePort;
+        String conType;
+        ArrayList<Testlist> selectedTests=new ArrayList<Testlist>();
+        for (Profilesdetails pr : profiles) {
+            if(pr.profileName.equals(activeProfile)){
+                conType=pr.connectionType;
+                activePort=pr.port;
+
+            }
+        }
+        ObservableList<Testlist> tabelItem= testTableView.getItems();
+        for (Testlist ti: tabelItem) {
+            System.out.println(ti.getSelect().isSelected());
+            if (ti.getSelect().isSelected()) {
+                selectedTests.add(ti);
+            }
+        }
+        if (selectedTests.size()>0) {
+
+        }
+        /*if (selectTableColumn != null) {
+            Thread.sleep(1000);
+            if (ProfilesController.class.getP)
+            String command = commandsMap.get(selectTableColumn);
+            byte[] byteArray = command.getBytes();
+            currentport.writeBytes(byteArray, byteArray.length);
+            Thread.sleep(1000);
+            String answer = connection.answer;
+            JsonReader reader = new JsonReader(new StringReader(answer));
+            reader.setLenient(true);
+            Answer jsonAnswer = new Gson().fromJson(answer, Answer.class);
+            List<Lists> ls = new ArrayList<>();
+            List<Logs> lg = new ArrayList<>();
+            List<Application.Parameters> parametersList = new ArrayList<>();
+            if (jsonAnswer != null){
+                if (jsonAnswer.list != null) {
+                    for (Lists lst : jsonAnswer.list) {
+                        ls.add(lst);
+                        if (lst.parameters != null) {
+                            for (Parameters pr : lst.parameters) {
+                                parametersList.add(pr);
+                            }
+                        }
+                    }
+                }
+                if (jsonAnswer.logs != null) {
+                    for (Logs log : jsonAnswer.logs) {
+                        lg.add(log);
+                    }
+                }
+            }
+        }*/
     }
 
     @FXML
@@ -141,7 +196,6 @@ public class NewsampleController implements Initializable {
     private void profileAction(ActionEvent actionEvent) throws IOException {
         MenuItem menuItem = (MenuItem) actionEvent.getSource();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profiles.fxml"));
-
         File prof = new File("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json");
         if (!prof.exists()) {
             Writer writer = Files.newBufferedWriter(Paths.get("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"));
@@ -207,11 +261,10 @@ public class NewsampleController implements Initializable {
             return cell;
         });
 
-        testTableView.setItems(testlistsData);
 
+        testTableView.setItems(testlistsData);
         timeColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("time"));
         messageColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("message"));
-
         statusTableView.setItems(messageTableData);
 
         try {
@@ -223,10 +276,8 @@ public class NewsampleController implements Initializable {
         for (Profilesdetails pr : profiles) {
             profileNames.add(pr.profileName);
         }
-
         buttonList.setItems(profileNames);
         buttonList.setCellFactory(param -> new XCell());
-
     }
 
     public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
@@ -240,7 +291,6 @@ public class NewsampleController implements Initializable {
     }
 
     private void initDate() {
-
         testlistsData.add(new Testlist("TestSuite1.testcase1", 10, 0, 1, "param1=data1, param2=data2, param3=data3, param4=data4, param5=data5"));
         testlistsData.add(new Testlist("TestSuite2.testcase2.TestSuite2.testcase2.TestSuite2.testcase2.", 100, 1, 0, "param1=data1"));
         testlistsData.add(new Testlist("TestSuite3.testcase3", 10, 1, 0, "param1=data1, param2=data2, param3=data3, param4=data4, ,param5=data5, param6=data6"));
@@ -249,22 +299,23 @@ public class NewsampleController implements Initializable {
         messageTableData.add(new MessageTable("08.06.38.329", "started"));
         messageTableData.add(new MessageTable("08.06.38.341", "reading"));
         messageTableData.add(new MessageTable("08.06.38.342", "finished"));
-
     }
 
-    static class XCell extends ListCell<String> {
-        Button button = new Button();
+    public void setLabelText(String text) {
+        chooseProfileLable.setText(text);
+        activeProfile=text;
+    }
 
+    class XCell extends ListCell<String> {
+        Button button = new Button();
 
         public XCell() {
             super();
-
-            button.setOnAction(event -> System.out.println("Button pressed"));
+            button.setOnAction(event -> NewsampleController.this.setLabelText(button.getText()));
             button.setPrefSize(166, 86);
-            button.setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+            //button.setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+            button.setMinSize(100, 52);
             button.setStyle("-fx-background: transparent");
-
-
         }
 
         @Override
@@ -272,13 +323,10 @@ public class NewsampleController implements Initializable {
             super.updateItem(item, empty);
             setText(null);
             setGraphic(null);
-
             if (item != null && !empty) {
                 button.setText(item);
                 setGraphic(button);
-
             }
         }
     }
-
 }
