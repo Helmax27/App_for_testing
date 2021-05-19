@@ -57,20 +57,13 @@
 	-fx-text-fill: #000000;
 }
 
-.button: pressed {
-    -fx-background-color: #18418E;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-radius: 8px;
-}
-.button: focused {
-    -fx-background-color: #18418E;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-radius: 8px;
-}
+
+
 .button {
     -fx-background-color:  #FFFFFF;
     -fx-background-radius: 8px;
     -fx-text-fill: #000000;
     -fx-background: transparent;
 }
+
 

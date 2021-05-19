@@ -3,6 +3,8 @@ package sample;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +33,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewsampleController implements Initializable {
+    public Button previousButton = new Button();
     @FXML
     public BorderPane borderPane;
     @FXML
@@ -115,13 +118,17 @@ public class NewsampleController implements Initializable {
     public ObservableList<MessageTable> messageTableData = FXCollections.observableArrayList();
     public ArrayList<Profilesdetails> profiles;
     public String activeProfile;
+    public ObservableList<String> profileNames = FXCollections.observableArrayList();
 
     @FXML
     public ListView buttonList;
 
     @FXML
+    public CheckBox selectAll;
+
+    @FXML
     private void onClick(ActionEvent actionEvent) {
-        return ;
+        return;
     }
 
     @FXML
@@ -132,22 +139,22 @@ public class NewsampleController implements Initializable {
     private void startAction(ActionEvent actionEvent) throws InterruptedException {
         int activePort;
         String conType;
-        ArrayList<Testlist> selectedTests=new ArrayList<Testlist>();
+        ArrayList<Testlist> selectedTests = new ArrayList<Testlist>();
         for (Profilesdetails pr : profiles) {
-            if(pr.profileName.equals(activeProfile)){
-                conType=pr.connectionType;
-                activePort=pr.port;
+            if (pr.profileName.equals(activeProfile)) {
+                conType = pr.connectionType;
+                activePort = pr.port;
 
             }
         }
-        ObservableList<Testlist> tabelItem= testTableView.getItems();
-        for (Testlist ti: tabelItem) {
+        ObservableList<Testlist> tabelItem = testTableView.getItems();
+        for (Testlist ti : tabelItem) {
             System.out.println(ti.getSelect().isSelected());
             if (ti.getSelect().isSelected()) {
                 selectedTests.add(ti);
             }
         }
-        if (selectedTests.size()>0) {
+        if (selectedTests.size() > 0) {
 
         }
         /*if (selectTableColumn != null) {
@@ -222,6 +229,19 @@ public class NewsampleController implements Initializable {
 
     @FXML
     private void loopSettingaction(ActionEvent actionEvent) {
+        MenuItem menuItem = (MenuItem) actionEvent.getSource();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loopSettings.fxml"));
+        Parent root2 = null;
+        try {
+            root2 = (Parent) fxmlLoader.load();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Loops");
+        stage.setScene(new Scene(root2, 450, 248));
+        stage.show();
     }
 
     @FXML
@@ -261,6 +281,19 @@ public class NewsampleController implements Initializable {
             return cell;
         });
 
+        selectAll.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                ObservableList<Testlist> tabelItem = testTableView.getItems();
+                for (Testlist ti : tabelItem) {
+                    if (selectAll.isSelected()) {
+                        ti.getSelect().setSelected(true);
+                    } else
+                        ti.getSelect().setSelected(false);
+                }
+            }
+        });
+
 
         testTableView.setItems(testlistsData);
         timeColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("time"));
@@ -272,12 +305,13 @@ public class NewsampleController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        ObservableList<String> profileNames = FXCollections.observableArrayList();
+
         for (Profilesdetails pr : profiles) {
             profileNames.add(pr.profileName);
         }
         buttonList.setItems(profileNames);
         buttonList.setCellFactory(param -> new XCell());
+        chooseProfileLable.setText(profileNames.get(0));
     }
 
     public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
@@ -303,7 +337,7 @@ public class NewsampleController implements Initializable {
 
     public void setLabelText(String text) {
         chooseProfileLable.setText(text);
-        activeProfile=text;
+        activeProfile = text;
     }
 
     class XCell extends ListCell<String> {
@@ -311,11 +345,16 @@ public class NewsampleController implements Initializable {
 
         public XCell() {
             super();
-            button.setOnAction(event -> NewsampleController.this.setLabelText(button.getText()));
-            button.setPrefSize(166, 86);
-            //button.setMinSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
-            button.setMinSize(100, 52);
-            button.setStyle("-fx-background: transparent");
+            button.setOnMouseClicked(event -> {
+
+                NewsampleController.this.setLabelText(button.getText());
+                button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
+                previousButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000");
+                previousButton = button;
+
+            });
+
+
         }
 
         @Override
@@ -324,7 +363,16 @@ public class NewsampleController implements Initializable {
             setText(null);
             setGraphic(null);
             if (item != null && !empty) {
+                button.setPrefSize(166, 86);
+
+                button.setMinSize(100, Control.USE_COMPUTED_SIZE);
+                if (profileNames.get(0) == item){
+                    button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF" );
+                    previousButton = button;
+                }
+
                 button.setText(item);
+
                 setGraphic(button);
             }
         }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="248.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoopSettingsController">
+   <children>
+      <Label layoutX="46.0" layoutY="36.0" text="Please type the required number of loops" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="117.0" text="Loops:">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="taLoop" layoutX="127.0" layoutY="107.0" prefHeight="43.0" prefWidth="97.0" style="-fx-background-color: #F2F3F7; -fx-background-radius: 8px; -fx-border-color: #312E43; -fx-border-radius: 8px; -fx-border-size: 2px; -fx-alignment: center;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font></TextField>
+      <Button fx:id="buttonCancelLoop" cancelButton="true" layoutX="219.0" layoutY="184.0" mnemonicParsing="false" onAction="#onCancelLoop" prefHeight="51.0" prefWidth="109.0" stylesheets="@style.css" text="Cancel">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font></Button>
+      <Button fx:id="buttonSaveLoop" layoutX="334.0" layoutY="184.0" mnemonicParsing="false" onAction="#onSaveButton" prefHeight="51.0" prefWidth="109.0" stylesheets="@style.css" text="Save">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
