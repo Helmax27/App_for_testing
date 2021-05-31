@@ -38,3 +38,33 @@
 .text-area *.text {
     -fx-text-alignment: center;
 }
+.button {
+    -fx-background-color:  #F8F8FB;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
+    -fx-background: transparent;
+}
+.button:pressed {
+    -fx-background-color:  #18418E;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background: transparent;
+}
+.button:hover {
+    -fx-background-color:  #D6D5DF;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000;
+    -fx-background: transparent;
+}
+.button:focused {
+    -fx-background-color:  #18418E;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background: transparent;
+}
+.button:armed {
+    -fx-background-color:  #18418E;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background: transparent;
+}

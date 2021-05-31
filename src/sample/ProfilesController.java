@@ -51,6 +51,8 @@ public class ProfilesController {
     public ArrayList<Profilesdetails> profiles;
     public String currentProfileName;
 
+
+
     private boolean showConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Profile");

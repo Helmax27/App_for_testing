@@ -27,7 +27,7 @@
                 <Menu fx:id="settingItem" mnemonicParsing="false" onAction="#onClick" text="Setting">
                   <items>
                     <MenuItem fx:id="profilesItem" mnemonicParsing="false" onAction="#profileAction" text="Profiles" />
-                        <MenuItem fx:id="parametersItem" mnemonicParsing="false" onAction="#parametersAction" text="Parameters" />
+                        <MenuItem fx:id="playlistItem" mnemonicParsing="false" onAction="#playlistAction" text="Playlist" />
                         <MenuItem fx:id="loopSettingItem" mnemonicParsing="false" onAction="#loopSettingaction" text="Loop Settings" />
                   </items>
                 </Menu>

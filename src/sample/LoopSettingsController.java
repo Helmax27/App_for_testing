@@ -2,15 +2,8 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import sun.rmi.runtime.NewThreadAction;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class LoopSettingsController {
     @FXML
@@ -19,15 +12,26 @@ public class LoopSettingsController {
     public Button buttonCancelLoop;
     @FXML
     public Button buttonSaveLoop;
+    public Label l;
+
+    public void setl(Label l) {
+        this.l = l;
+    }
+
+    public Label getL() {
+        return l;
+    }
 
     @FXML
     private void onSaveButton(ActionEvent actionEvent) {
         if (taLoop.getText().equals("")) {
             showAlert("Warning alert", "Please enter any value");
         } else {
-            NewsampleController.
+            l.setText(taLoop.getText());
         }
+        onCancelLoop();
     }
+
     @FXML
     private void onCancelLoop() {
         Stage stage = (Stage) buttonCancelLoop.getScene().getWindow();
@@ -51,4 +55,5 @@ public class LoopSettingsController {
             }
         }));
     }
+
 }

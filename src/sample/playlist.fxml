@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="867.0" style="-fx-background-color: #F8F8FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PlaylistController">
+   <children>
+      <TableView fx:id="availableTestsTV" layoutX="93.0" layoutY="146.0" prefHeight="419.0" prefWidth="316.0" style="-fx-padding: 0px;" stylesheets="@textstyle.css" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="50.0">
+        <columns>
+          <TableColumn fx:id="availableTestscolumn" prefWidth="315.0" text="AVAILABLE TESTS" />
+        </columns>
+      </TableView>
+      <TableView fx:id="currentPlaylistTV" layoutX="550.0" layoutY="146.0" prefHeight="419.0" prefWidth="316.0" style="-fx-padding: 0px;" stylesheets="@textstyle.css" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="50.0">
+        <columns>
+          <TableColumn fx:id="currentPlaylistcolumn" prefWidth="315.0" text="CURRENT PLAYLIST" />
+        </columns>
+      </TableView>
+      <VBox layoutX="761.0" layoutY="173.0" prefHeight="419.0" prefWidth="55.0" style="-fx-background-color: #F2F3F7; -fx-border-radius: 8px; -fx-border-color: #F2F3F7; -fx-padding: 0px;" AnchorPane.leftAnchor="761.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Pane prefHeight="220.0" prefWidth="200.0" />
+            <Button fx:id="endButton" mnemonicParsing="false" onAction="#endAction" prefHeight="38.0" prefWidth="55.0" style="-fx-background-color: #F2F3F7;">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/bx_bxs-chevrons-down.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="onedownButton" layoutX="46.0" layoutY="38.0" mnemonicParsing="false" onAction="#onedownAction" prefHeight="38.0" prefWidth="55.0" style="-fx-background-color: #F2F3F7;">
+               <graphic>
+                  <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Vector3.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="oneupButton" layoutY="36.0" mnemonicParsing="false" onAction="#oneupAction" prefHeight="38.0" prefWidth="55.0" style="-fx-background-color: #F2F3F7;">
+               <graphic>
+                  <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Vector4.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="homeButton" layoutX="11.0" layoutY="61.0" mnemonicParsing="false" onAction="#homeAction" prefHeight="38.0" prefWidth="55.0" style="-fx-background-color: #F2F3F7;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/bx_bxs-chevrons-up.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <Button fx:id="deletItemButton" layoutX="11.0" layoutY="86.0" mnemonicParsing="false" onAction="#deleteItem" prefWidth="55.0" style="-fx-background-color: #F2F3F7;" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="25.5" fitWidth="23.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Vector.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children></VBox>
+      <Button fx:id="transferButton" layoutX="391.0" layoutY="260.0" mnemonicParsing="false" onAction="#transferAction" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #F8F8FB;" AnchorPane.leftAnchor="391.0">
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding></Button>
+      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="389.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="384.0">
+         <image>
+            <Image url="@assets/Vector1.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="savePlaylistButton" layoutX="703.0" layoutY="500.0" mnemonicParsing="false" onAction="#savePlaylist" prefHeight="51.0" prefWidth="116.0" stylesheets="@textstyle.css" text="Save">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelPlaylistButton" layoutX="587.0" layoutY="500.0" mnemonicParsing="false" onAction="#cancelPlaylist" prefHeight="51.0" prefWidth="116.0" stylesheets="@textstyle.css" text="Cancel">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="currentProfileName" layoutX="14.0" layoutY="251.0" text="Label" visible="false" />
+   </children>
+</AnchorPane>

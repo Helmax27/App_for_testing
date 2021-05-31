@@ -1,8 +1,6 @@
 package sample;
 
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,7 +27,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewsampleController implements Initializable {
@@ -55,7 +52,7 @@ public class NewsampleController implements Initializable {
     @FXML
     public MenuItem profilesItem;
     @FXML
-    public MenuItem parametersItem;
+    public MenuItem playlistItem;
     @FXML
     public MenuItem loopSettingItem;
     @FXML
@@ -119,12 +116,19 @@ public class NewsampleController implements Initializable {
     public ArrayList<Profilesdetails> profiles;
     public String activeProfile;
     public ObservableList<String> profileNames = FXCollections.observableArrayList();
-
     @FXML
     public ListView buttonList;
-
     @FXML
     public CheckBox selectAll;
+    public String activeProfileName;
+
+    public String getActiveProfileName() {
+        return activeProfileName;
+    }
+
+    public void setActiveProfileName(String activeProfileName) {
+        this.activeProfileName = activeProfileName;
+    }
 
     @FXML
     private void onClick(ActionEvent actionEvent) {
@@ -220,11 +224,25 @@ public class NewsampleController implements Initializable {
         stage.setTitle("Profiles");
         stage.setScene(new Scene(root1, 742, 462));
         stage.show();
-
     }
 
     @FXML
-    private void parametersAction(ActionEvent actionEvent) {
+    private void playlistAction(ActionEvent actionEvent) {
+        MenuItem menuItem = (MenuItem) actionEvent.getSource();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlist.fxml"));
+        Parent root3 = null;
+        try {
+            root3 = (Parent) fxmlLoader.load();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Stage stage = new Stage();
+        PlaylistController controller = fxmlLoader.getController();
+        controller.setCurrentProfileName(chooseProfileLable);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Playlist");
+        stage.setScene(new Scene(root3, 867, 576));
+        stage.show();
     }
 
     @FXML
@@ -238,6 +256,8 @@ public class NewsampleController implements Initializable {
             ioException.printStackTrace();
         }
         Stage stage = new Stage();
+        LoopSettingsController controller = fxmlLoader.getController();
+        controller.setl(loopLable);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Loops");
         stage.setScene(new Scene(root2, 450, 248));
@@ -266,6 +286,7 @@ public class NewsampleController implements Initializable {
             return cell;
         });
 
+
         selectTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, CheckBox>("select"));
         durationTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("duration"));
         passTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("pass"));
@@ -276,7 +297,7 @@ public class NewsampleController implements Initializable {
             Text text = new Text();
             cell.setGraphic(text);
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(nameTableColumn.widthProperty().subtract(25));
+            text.wrappingWidthProperty().bind(parametersTableColumn.widthProperty().subtract(25));
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });
@@ -351,10 +372,7 @@ public class NewsampleController implements Initializable {
                 button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
                 previousButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000");
                 previousButton = button;
-
             });
-
-
         }
 
         @Override
@@ -366,13 +384,11 @@ public class NewsampleController implements Initializable {
                 button.setPrefSize(166, 86);
 
                 button.setMinSize(100, Control.USE_COMPUTED_SIZE);
-                if (profileNames.get(0) == item){
-                    button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF" );
+                if (profileNames.get(0) == item) {
+                    button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
                     previousButton = button;
                 }
-
                 button.setText(item);
-
                 setGraphic(button);
             }
         }
