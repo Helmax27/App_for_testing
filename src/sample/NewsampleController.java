@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import sample.pojo.MessageTable;
 import sample.pojo.Testlist;
 
@@ -230,6 +231,22 @@ public class NewsampleController implements Initializable {
     private void playlistAction(ActionEvent actionEvent) {
         MenuItem menuItem = (MenuItem) actionEvent.getSource();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("playlist.fxml"));
+        fxmlLoader.setControllerFactory(new Callback<Class<?>, Object>() {
+            @Override
+            public Object call(Class<?> controllerClass) {
+                if (controllerClass == PlaylistController.class) {
+                    PlaylistController controller = new PlaylistController();
+                    controller.setCurrentProfileName(chooseProfileLable.getText());
+                    return controller ;
+                } else {
+                    try {
+                        return controllerClass.newInstance();
+                    } catch (Exception exc) {
+                        throw new RuntimeException(exc); // just bail
+                    }
+                }
+            }
+        });
         Parent root3 = null;
         try {
             root3 = (Parent) fxmlLoader.load();
@@ -237,8 +254,6 @@ public class NewsampleController implements Initializable {
             ioException.printStackTrace();
         }
         Stage stage = new Stage();
-        PlaylistController controller = fxmlLoader.getController();
-        controller.setCurrentProfileName(chooseProfileLable);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Playlist");
         stage.setScene(new Scene(root3, 867, 576));

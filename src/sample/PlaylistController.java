@@ -1,6 +1,7 @@
 package sample;
 
 import com.google.gson.Gson;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -36,21 +38,20 @@ public class PlaylistController {
     @FXML
     public TableView<String> availableTestsTV;
     @FXML
-    public TableColumn<Tests, String> availableTestscolumn;
+    public TableColumn<String, String> availableTestscolumn;
     @FXML
     public TableView<Tests> currentPlaylistTV;
     @FXML
     public TableColumn<Tests, String> currentPlaylistcolumn;
+    public ObservableList<String> testName = FXCollections.observableArrayList();
 
 
-    @FXML
-    public Label currentProfileName;
+    public String currentProfileName;
     public ArrayList<Tests> availableTests;
     public String currentTestName;
     public LinkedList<String> currentPlaylist;
 
-    public void setCurrentProfileName(Label currentProfileName) {
-
+    public void setCurrentProfileName(String currentProfileName) {
         this.currentProfileName = currentProfileName;
     }
 
@@ -92,16 +93,23 @@ public class PlaylistController {
     @FXML
     public void initialize() throws FileNotFoundException {
         initDate();
-        availableTestscolumn.setCellValueFactory(new PropertyValueFactory<Tests, String>("testSuite" + "ListTest"));
-        availableTestscolumn.setCellFactory(tc -> {
-            TableCell<Tests, String> cell = new TableCell<>();
+        availableTestscolumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> param) {
+                return param.getValue();
+            }
+        });
+       /* availableTestscolumn.setCellFactory(tc -> {
+            TableCell<String, String> cell = new TableCell<>();
             Text text = new Text();
             cell.setGraphic(text);
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             text.wrappingWidthProperty().bind(availableTestscolumn.widthProperty());
             text.textProperty().bind(cell.itemProperty());
             return cell;
-        });
+        });*/
+
+        availableTestsTV.setItems(testName);
 
     }
 
@@ -109,27 +117,25 @@ public class PlaylistController {
     private void initDate() throws FileNotFoundException {
 
         availableTests = readTests();
-        System.out.println(currentProfileName.getText());
+        System.out.println(currentProfileName);
 
-        ObservableList<String> testName = FXCollections.observableArrayList();
-        ObservableList<String> listTestName = FXCollections.observableArrayList();
+
         for (Tests tn : availableTests) {
-            if (tn.profileName.equals(currentProfileName.getText())) {
+            if (tn.profileName.equals(currentProfileName)) {
                 for (Tests.TestList tslist : tn.testList) {
                     for (Tests.Test lt : tslist.listTests) {
-                        listTestName.add(lt.testName);
+                        testName.add(tslist.testSuit + "." + lt.testName);
                     }
-                    testName.add(tslist.testSuit);
                 }
             }
         }
-        availableTestsTV.setItems(testName);
+
     }
 
     public ArrayList<Tests> readTests() throws FileNotFoundException {
         ArrayList<Tests> availableTests = new ArrayList<>();
         Gson gson = new Gson();
-        Tests[] test = gson.fromJson(new FileReader("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Test1.json"), Tests[].class);
+        Tests[] test = gson.fromJson(new FileReader("src\\sample\\Test1.json"), Tests[].class);
         List<Tests.TestList> tstlist = new ArrayList<>();
         List<Tests.Test> listtst = new ArrayList<>();
         List<Tests.Params> paramsList = new ArrayList<>();
