@@ -11,10 +11,13 @@
 .table-row-cell: even {
     -fx-font-color: #D6D5DF;
     -fx-table-cell-border-color: #FFFFFF;
+    -fx-text-fill: #000000;
 }
+
 .table-row-cell: odd {
     -fx-background-color:  #E2E1E8;
     -fx-table-cell-border-color: #E2E1E8;
+    -fx-text-fill: #000000;
 }
 .table-row-cell: selected {
     -fx-background-color:  #18418E;
@@ -24,13 +27,16 @@
 .table-row-cell: hover {
     -fx-background-color:  #D6D5DF;
     -fx-table-cell-border-color: #E2E1E8;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #FFFFFF;
+}
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
 }
 .table-view .column-header {
     -fx-size: 77px;
 }
 .table-view .column-header .label{
-    -fx-alignment:CENTER
+    -fx-alignment:CENTER;
 }
 
 .menu-item:focused, .menu:focused, .menu:showing {

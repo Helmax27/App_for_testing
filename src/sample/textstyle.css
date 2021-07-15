@@ -14,11 +14,12 @@
 .table-row-cell: odd {
     -fx-background-color: #454255;
     -fx-table-cell-border-color: #454255;
-
+    -fx-text-fill: #FFFFFF;
 }
 .table-row-cell: even {
     -fx-background-color: #312E43;
     -fx-table-cell-border-color: #312E43;
+    -fx-text-fill: #FFFFFF;
     }
 
 .table-view .column-header {

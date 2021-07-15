@@ -8,12 +8,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="867.0" style="-fx-background-color: #F8F8FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PlaylistController">
    <children>
-      <TableView fx:id="availableTestsTV" layoutX="93.0" layoutY="146.0" prefHeight="419.0" prefWidth="316.0" style="-fx-padding: 0px;" stylesheets="@textstyle.css" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="availableTestsTV" layoutX="93.0" layoutY="146.0" prefHeight="419.0" prefWidth="316.0" style="-fx-padding: 0px;" stylesheets="@style.css" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="50.0">
         <columns>
           <TableColumn fx:id="availableTestscolumn" prefWidth="315.0" text="AVAILABLE TESTS" />
         </columns>
       </TableView>
-      <TableView fx:id="currentPlaylistTV" layoutX="550.0" layoutY="146.0" prefHeight="419.0" prefWidth="316.0" style="-fx-padding: 0px;" stylesheets="@textstyle.css" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="currentPlaylistTV" layoutX="550.0" layoutY="146.0" prefHeight="419.0" prefWidth="316.0" style="-fx-padding: 0px;" stylesheets="@style.css" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="50.0">
         <columns>
           <TableColumn fx:id="currentPlaylistcolumn" prefWidth="315.0" text="CURRENT PLAYLIST" />
         </columns>
@@ -67,15 +67,17 @@
                </graphic>
             </Button>
          </children></VBox>
-      <Button fx:id="transferButton" layoutX="391.0" layoutY="260.0" mnemonicParsing="false" onAction="#transferAction" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #F8F8FB;" AnchorPane.leftAnchor="391.0">
+      <Button fx:id="transferButton" layoutX="391.0" layoutY="260.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#transferAction" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #F8F8FB;" AnchorPane.bottomAnchor="271.0" AnchorPane.leftAnchor="387.0">
          <padding>
             <Insets left="15.0" right="15.0" />
-         </padding></Button>
-      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="389.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="384.0">
-         <image>
-            <Image url="@assets/Vector1.png" />
-         </image>
-      </ImageView>
+         </padding>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/Vector1.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Button fx:id="savePlaylistButton" layoutX="703.0" layoutY="500.0" mnemonicParsing="false" onAction="#savePlaylist" prefHeight="51.0" prefWidth="116.0" stylesheets="@textstyle.css" text="Save">
          <font>
             <Font name="Calibri Bold" size="20.0" />

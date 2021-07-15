@@ -53,7 +53,7 @@ public class Tests {
         }
     }
 
-    class Test {
+    static class Test {
         public String testName;
         public List<Params> params;
 

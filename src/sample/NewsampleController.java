@@ -139,7 +139,7 @@ public class NewsampleController implements Initializable {
     @FXML
     private void exitAction(ActionEvent actionEvent) {
     }
-
+    //Creating a list of profiles
     @FXML
     private void startAction(ActionEvent actionEvent) throws InterruptedException {
         int activePort;
@@ -203,14 +203,14 @@ public class NewsampleController implements Initializable {
     @FXML
     private void showDescriptionAction(ActionEvent actionEvent) {
     }
-
+    //Call Profiles window
     @FXML
     private void profileAction(ActionEvent actionEvent) throws IOException {
         MenuItem menuItem = (MenuItem) actionEvent.getSource();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profiles.fxml"));
-        File prof = new File("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json");
+        File prof = new File("src\\sample\\Profiles\\Existingprofiles.json");
         if (!prof.exists()) {
-            Writer writer = Files.newBufferedWriter(Paths.get("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"));
+            Writer writer = Files.newBufferedWriter(Paths.get("src\\sample\\Profiles\\Existingprofiles.json"));
             writer.write("[]");
             writer.close();
         }
@@ -226,7 +226,7 @@ public class NewsampleController implements Initializable {
         stage.setScene(new Scene(root1, 742, 462));
         stage.show();
     }
-
+    //Call Play window
     @FXML
     private void playlistAction(ActionEvent actionEvent) {
         MenuItem menuItem = (MenuItem) actionEvent.getSource();
@@ -259,7 +259,7 @@ public class NewsampleController implements Initializable {
         stage.setScene(new Scene(root3, 867, 576));
         stage.show();
     }
-
+    //Call Loop window
     @FXML
     private void loopSettingaction(ActionEvent actionEvent) {
         MenuItem menuItem = (MenuItem) actionEvent.getSource();
@@ -300,8 +300,7 @@ public class NewsampleController implements Initializable {
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });
-
-
+        // Defines how to fill data for each cell in Test table
         selectTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, CheckBox>("select"));
         durationTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("duration"));
         passTableColumn.setCellValueFactory(new PropertyValueFactory<Testlist, Integer>("pass"));
@@ -316,7 +315,7 @@ public class NewsampleController implements Initializable {
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });
-
+        //Selection of elements in Test table
         selectAll.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -329,9 +328,9 @@ public class NewsampleController implements Initializable {
                 }
             }
         });
-
-
         testTableView.setItems(testlistsData);
+
+        // Defines how to fill data for each cell in Status table
         timeColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("time"));
         messageColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("message"));
         statusTableView.setItems(messageTableData);
@@ -345,15 +344,18 @@ public class NewsampleController implements Initializable {
         for (Profilesdetails pr : profiles) {
             profileNames.add(pr.profileName);
         }
+        //Generating buttons of Profile List
         buttonList.setItems(profileNames);
         buttonList.setCellFactory(param -> new XCell());
+
+        //Enabling active profile label
         chooseProfileLable.setText(profileNames.get(0));
     }
-
+    //Parsing a json file
     public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
         ArrayList<Profilesdetails> profiles = new ArrayList<>();
         Gson gson = new Gson();
-        Profilesdetails[] profilesdetails = gson.fromJson(new FileReader("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"), Profilesdetails[].class);
+        Profilesdetails[] profilesdetails = gson.fromJson(new FileReader("src\\sample\\Profiles\\Existingprofiles.json"), Profilesdetails[].class);
         for (Profilesdetails pr : profilesdetails) {
             profiles.add(pr);
         }
@@ -371,25 +373,25 @@ public class NewsampleController implements Initializable {
         messageTableData.add(new MessageTable("08.06.38.342", "finished"));
     }
 
+    //Generating profile buttons
     public void setLabelText(String text) {
         chooseProfileLable.setText(text);
         activeProfile = text;
     }
-
     class XCell extends ListCell<String> {
         Button button = new Button();
 
         public XCell() {
             super();
-            button.setOnMouseClicked(event -> {
-
-                NewsampleController.this.setLabelText(button.getText());
-                button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
-                previousButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000");
-                previousButton = button;
-            });
+                button.setOnMouseClicked(event -> {
+                        NewsampleController.this.setLabelText(button.getText());
+                        button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
+                        if (!previousButton.equals(button)) {
+                            previousButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000");
+                            previousButton = button;
+                        }
+                });
         }
-
         @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -407,5 +409,6 @@ public class NewsampleController implements Initializable {
                 setGraphic(button);
             }
         }
+
     }
 }

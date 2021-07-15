@@ -51,8 +51,6 @@ public class ProfilesController {
     public ArrayList<Profilesdetails> profiles;
     public String currentProfileName;
 
-
-
     private boolean showConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Profile");
@@ -163,7 +161,7 @@ public class ProfilesController {
         }
         //Save profiles to json file and update listview
         Gson gson = new Gson();
-        try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
+        try (FileWriter writer = new FileWriter("src\\sample\\Profiles\\Existingprofiles.json")) {
             gson.toJson(profiles, writer);
             writer.close();
         } catch (IOException e) {
@@ -185,7 +183,7 @@ public class ProfilesController {
             }
             //Save profiles to json file and update listview
             Gson gson = new Gson();
-            try (FileWriter writer = new FileWriter("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json")) {
+            try (FileWriter writer = new FileWriter("src\\sample\\Profiles\\Existingprofiles.json")) {
                 gson.toJson(profiles, writer);
                 writer.close();
             } catch (IOException e) {
@@ -259,7 +257,6 @@ public class ProfilesController {
                             radioButtonCOM.setSelected(true);
                             radioButtonTCP.setSelected(false);
                         }
-
                     }
                 }
             }
@@ -274,7 +271,7 @@ public class ProfilesController {
     public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
         ArrayList<Profilesdetails> profiles = new ArrayList<>();
         Gson gson = new Gson();
-        Profilesdetails[] profilesdetails = gson.fromJson(new FileReader("C:\\Users\\helen\\IdeaProjects\\App for testing\\src\\sample\\Profiles\\Existingprofiles.json"), Profilesdetails[].class);
+        Profilesdetails[] profilesdetails = gson.fromJson(new FileReader("src\\sample\\Profiles\\Existingprofiles.json"), Profilesdetails[].class);
         for (Profilesdetails pr : profilesdetails) {
             profiles.add(pr);
         }
