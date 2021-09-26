@@ -1,18 +1,14 @@
 package sample;
 
 import com.fazecast.jSerialComm.SerialPort;
-import javafx.scene.control.TextArea;
-
 import java.nio.charset.StandardCharsets;
 
 class Connect extends Thread {
     SerialPort serialPort;
     String answer;
-    TextArea ta;
 
-    public Connect(SerialPort serialPort, TextArea ta) {
+    public Connect(SerialPort serialPort) {
         this.serialPort = serialPort;
-        this.ta = ta;
     }
 
     public void run() {
@@ -24,9 +20,6 @@ class Connect extends Thread {
                     e.printStackTrace();
                 }
             }
-            System.out.println("===============================");
-            ta.appendText("======================================\n");
-
             byte[] inputButes = new byte[serialPort.bytesAvailable()];
             serialPort.readBytes(inputButes, inputButes.length);
             String s = new String(inputButes, StandardCharsets.UTF_8);

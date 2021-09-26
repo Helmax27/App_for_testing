@@ -158,6 +158,7 @@ public class ProfilesController {
                     }
                 }
             }
+
         }
         //Save profiles to json file and update listview
         Gson gson = new Gson();
@@ -169,6 +170,7 @@ public class ProfilesController {
         }
         readProfiles();
         initDate();
+        //onCancelProfileSettings();
     }
 
     //Delete Profile

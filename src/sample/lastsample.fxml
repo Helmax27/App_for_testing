@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPane" minHeight="500.0" minWidth="900.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F3F7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewsampleController">
+<BorderPane fx:id="borderPane" minHeight="500.0" minWidth="900.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F3F7;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewsampleController">
    <top>
       <HBox prefHeight="176.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <children>
@@ -117,7 +117,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></TextField>
       
-                   <Button fx:id="editButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="86.0" prefWidth="86.0" style="-fx-background-radius: 8px;" textAlignment="CENTER">
+                   <Button fx:id="editButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editAction" prefHeight="86.0" prefWidth="86.0" style="-fx-background-radius: 8px;" textAlignment="CENTER">
                      <graphic>
                         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-radius: 8px;">
                            <children>

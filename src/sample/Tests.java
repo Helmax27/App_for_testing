@@ -113,6 +113,12 @@ public class Tests {
         void setValue(String value) {
             this.value = value;
         }
+
+
+        @Override
+        public String toString() {
+            return "param_name=" + param_name + ", description=" + description + ", value=" + value ;
+        }
     }
 
 }
