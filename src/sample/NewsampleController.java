@@ -29,6 +29,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewsampleController implements Initializable {
@@ -141,6 +142,7 @@ public class NewsampleController implements Initializable {
     @FXML
     private void exitAction(ActionEvent actionEvent) {
     }
+
     //Creating a list of profiles
     @FXML
     private void startAction(ActionEvent actionEvent) throws InterruptedException {
@@ -162,9 +164,7 @@ public class NewsampleController implements Initializable {
             }
         }
         if (selectedTests.size() > 0) {
-
         }
-
     }
 
     @FXML
@@ -174,6 +174,7 @@ public class NewsampleController implements Initializable {
     @FXML
     private void showDescriptionAction(ActionEvent actionEvent) {
     }
+
     //Call Profiles window
     @FXML
     private void profileAction(ActionEvent actionEvent) throws IOException {
@@ -195,7 +196,7 @@ public class NewsampleController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Profiles");
         stage.setScene(new Scene(root1, 742, 462));
-        stage.setOnHidden (event -> {
+        stage.setOnHidden(event -> {
             try {
                 initDate();
             } catch (FileNotFoundException e) {
@@ -204,6 +205,7 @@ public class NewsampleController implements Initializable {
         });
         stage.show();
     }
+
     //Call Play window
     @FXML
     private void playlistAction(ActionEvent actionEvent) {
@@ -215,7 +217,7 @@ public class NewsampleController implements Initializable {
                 if (controllerClass == PlaylistController.class) {
                     PlaylistController controller = new PlaylistController();
                     controller.setCurrentProfileName(chooseProfileLable.getText());
-                    return controller ;
+                    return controller;
                 } else {
                     try {
                         return controllerClass.newInstance();
@@ -237,6 +239,7 @@ public class NewsampleController implements Initializable {
         stage.setScene(new Scene(root3, 867, 576));
         stage.show();
     }
+
     //Call Loop window
     @FXML
     private void loopSettingaction(ActionEvent actionEvent) {
@@ -318,6 +321,7 @@ public class NewsampleController implements Initializable {
         statusTableView.setItems(messageTableData);
 
     }
+
     //Parsing a json file with Profile details
     public ArrayList<Profilesdetails> readProfiles() throws FileNotFoundException {
         ArrayList<Profilesdetails> profiles = new ArrayList<>();
@@ -330,12 +334,19 @@ public class NewsampleController implements Initializable {
     }
 
     private void initDate() throws FileNotFoundException {
-        Gson gson =new Gson();
-        NewTest testlist= gson.fromJson(new FileReader("src\\sample\\Currentplaylist.json"), NewTest.class);
-        for(NewTestList tl: testlist.testList){
-                testlistsData.add(new Testlist(tl.testSuit+"."+tl.testName, 0, 0, 0, tl.params.toString().substring(1, tl.params.toString().length()-1)));
+        Gson gson = new Gson();
+        /*NewTest testlist = gson.fromJson(new FileReader("src\\sample\\Currentplaylist.json"), NewTest.class);
+        for (NewTestList tl : testlist.testList) {
+            testlistsData.add(new Testlist(tl.testSuit + "." + tl.testName, 0, 0, 0, tl.params.toString().substring(1, tl.params.toString().length() - 1)));
+        }*/
+        Answer testList = gson.fromJson(new FileReader("src\\sample\\Getanswer.json"), Answer.class);
+        List<Parameters> param = new ArrayList<Parameters>();
+        for (Lists tl : testList.list) {
+            for (Parameters pr: tl.parameters) {
+                param.add(pr);
             }
-
+            testlistsData.add(new Testlist((Testlist)(tl.test_name, tl.test_description,  param)));
+        }
         messageTableData.add(new MessageTable("08.03.02.147", "initialized"));
         messageTableData.add(new MessageTable("08.06.38.329", "started"));
         messageTableData.add(new MessageTable("08.06.38.341", "reading"));
@@ -378,44 +389,46 @@ public class NewsampleController implements Initializable {
             tsl.setParameters(newParameters);
         });
     }
-
+    //Selection of the required profile
     class XCell extends ListCell<String> {
         Button button = new Button();
 
         public XCell() {
             super();
-                button.setOnMouseClicked(event -> {
-                        NewsampleController.this.setLabelText(button.getText());
-                        button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
-                        if (!previousButton.equals(button)) {
-                            previousButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000");
-                            previousButton = button;
-                        }
-                        if (profiles.get(0).connectionType.equals("COM")) {
-                            SerialPort sr= SerialPort.getCommPort("COM"+profiles.get(0).port);
-                            sr.openPort(0);
-                            connection = new Connect(sr);
-                            connection.start();
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("connection.fxml"));
-                            Parent root4 = null;
-                            try {
-                                root4 = (Parent) fxmlLoader.load();
-                            } catch (IOException ioException) {
-                                ioException.printStackTrace();
-                            }
-                            Stage stage = new Stage();
-                            ConnectionController controller = fxmlLoader.getController();
-                            controller.setPort(sr);
-                            controller.setConnect(connection);
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.setTitle("Connection");
-                            stage.setScene(new Scene(root4, 400, 233));
-                            stage.show();
-                        }
-                });
+            button.setOnMouseClicked(event -> {
+                NewsampleController.this.setLabelText(button.getText());
+                button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
+                if (!previousButton.equals(button)) {
+                    previousButton.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000");
+                    previousButton = button;
+                }
+                //Data connection via com port
+                //Open a new stage
+                if (profiles.get(0).connectionType.equals("COM")) {
+                    SerialPort sr = SerialPort.getCommPort("COM" + profiles.get(0).port);
+                    sr.openPort(0);
+                    connection = new Connect(sr);
+                    connection.start();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("connection.fxml"));
+                    Parent root4 = null;
+                    try {
+                        root4 = (Parent) fxmlLoader.load();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+                    ConnectionController controller = fxmlLoader.getController();
+                    controller.setPort(sr);
+                    controller.setConnect(connection);
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setTitle("Connection");
+                    stage.setScene(new Scene(root4, 400, 233));
+                    stage.show();
+                }
+            });
         }
 
-
+        //Create The Profile button
         @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -423,7 +436,6 @@ public class NewsampleController implements Initializable {
             setGraphic(null);
             if (item != null && !empty) {
                 button.setPrefSize(166, 86);
-
                 button.setMinSize(100, Control.USE_COMPUTED_SIZE);
                 if (profileNames.get(0) == item) {
                     //button.setStyle("-fx-background-color: #18418E; -fx-text-fill: #FFFFFF");
@@ -434,7 +446,5 @@ public class NewsampleController implements Initializable {
                 setGraphic(button);
             }
         }
-
     }
-
 }

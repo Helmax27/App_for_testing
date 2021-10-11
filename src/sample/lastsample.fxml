@@ -10,7 +10,7 @@
    <top>
       <HBox prefHeight="176.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar fx:id="menuBar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="214.0" style="-fx-font-weight: bold; -fx-font-family: Calibri; -fx-font-size: 13px; -fx-background-color: #D6D5DF; -fx-focus-traversable: #87CEEB;" stylesheets="@style.css">
+            <MenuBar fx:id="menuBar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="214.0" style="-fx-font-weight: bold; -fx-font-family: Calibri; -fx-font-size: 13px; -fx-background-color: #D6D5DF;" stylesheets="@style.css">
               <menus>
                 <Menu fx:id="testItem" mnemonicParsing="false" onAction="#onClick" text="Test">
                   <items>
@@ -223,7 +223,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                       <columns>
-                        <TableColumn fx:id="selectTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: CENTER;" text="SELECT">
+                        <TableColumn fx:id="selectTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" text="SELECT">
                            <graphic>
                               <CheckBox fx:id="selectAll" alignment="BOTTOM_LEFT" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="8.0" prefWidth="0.0" style="-fx-alignment: bottom;" text=" ">
                                  <font>

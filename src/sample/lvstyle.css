@@ -4,7 +4,8 @@
 	-fx-background-radius: 8px;
 	-fx-font-size: 26px;
     -fx-font-family: Calibri;
-    -fx-font-style: Bold;
+    -fx-font-weight: Bold;
+/*    -fx-font-style: Bold;*/
     -fx-text-fill: #000000;
 }
 
@@ -19,7 +20,8 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);
     -fx-font-size: 26px;
     -fx-font-family: Calibri;
-    -fx-font-style: Bold;
+    -fx-font-weight: Bold;
+/*    -fx-font-style: Bold;*/
 
 }
 .button: focused {
@@ -28,7 +30,8 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);
     -fx-font-size: 26px;
     -fx-font-family: Calibri;
-    -fx-font-style: Bold;
+    -fx-font-weight: Bold;
+/*    -fx-font-style: Bold;*/
     -fx-text-fill: #FFFFFF;
 }
 .button: hover {
@@ -37,6 +40,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0.4, 1, 5);
     -fx-font-size: 26px;
     -fx-font-family: Calibri;
-    -fx-font-style: Bold;
+    -fx-font-weight: Bold;
+/*    -fx-font-style: Bold;*/
     -fx-text-fill: #000000;
 }

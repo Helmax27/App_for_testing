@@ -56,7 +56,7 @@
 .list-cell {
 	-fx-alignment: center ;
 	-fx-background-color:  #F2F3F7;
-	-fx-font-family: "Calibri";
+	-fx-font-family: Calibri;
 	-fx-font-size: 20px;
 }
 .list-cell: focused {

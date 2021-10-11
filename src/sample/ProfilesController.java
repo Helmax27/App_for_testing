@@ -1,6 +1,7 @@
 package sample;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -161,7 +162,8 @@ public class ProfilesController {
 
         }
         //Save profiles to json file and update listview
-        Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.serializeNulls().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter("src\\sample\\Profiles\\Existingprofiles.json")) {
             gson.toJson(profiles, writer);
             writer.close();
@@ -184,7 +186,8 @@ public class ProfilesController {
                 }
             }
             //Save profiles to json file and update listview
-            Gson gson = new Gson();
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.serializeNulls().setPrettyPrinting().create();
             try (FileWriter writer = new FileWriter("src\\sample\\Profiles\\Existingprofiles.json")) {
                 gson.toJson(profiles, writer);
                 writer.close();

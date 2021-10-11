@@ -1,13 +1,18 @@
 package sample;
 
 import com.fazecast.jSerialComm.SerialPort;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 
@@ -18,20 +23,23 @@ public class ConnectionController {
     public Button buttonCancelConnection;
     @FXML
     public Button buttonStartlConnection;
-    private HashMap<String, String> commandsMap;
 
-    public void setConnect(Connect connect) {
-        this.connect = connect;
+    public void setConnectLabel(Label connectLabel) {
+        this.connectLabel = connectLabel;
     }
 
+    @FXML
+    public Label connectLabel;
     public Connect connect;
+    public SerialPort port;
+    private HashMap<String, String> commandsMap;
 
     public void setPort(SerialPort port) {
         this.port = port;
     }
-
-    public SerialPort port;
-
+    public void setConnect(Connect connect) {
+        this.connect=connect;
+    }
 
     @FXML
     private void onCancelConnection(ActionEvent actionEvent) {
@@ -42,33 +50,65 @@ public class ConnectionController {
         Stage stage = (Stage) buttonCancelConnection.getScene().getWindow();
         stage.close();
     }
+
     @FXML
     private void onStartConnection(ActionEvent actionEvent) throws InterruptedException {
         buttonStartlConnection.setDisable(true);
-        double i=0;
-        connectionProgressBar.setProgress(i);
-
+        connectionProgressBar.setProgress(0);
         buttonCancelConnection.setDisable(false);
-        for (String value: commandsMap.values()) {
-            Thread.sleep(1000);
-            String command=value;
-            System.out.println(command);
-            byte [] byteArray= command.getBytes();
-            port.writeBytes(byteArray, byteArray.length);
-            i+=0.25;
-            connectionProgressBar.setProgress(i);
-            Thread.sleep(1000);
-            String answer=connect.answer;
-            //JsonReader reader = new JsonReader(new StringReader(answer));
-            //reader.setLenient(true);
+        new Thread(() -> {
+            double i = 0;
+            for (String value : commandsMap.values()) {
 
-        }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                String command = value;
+                System.out.println(command);
+                byte[] byteArray = command.getBytes();
+                port.writeBytes(byteArray, byteArray.length);
+                i += 0.25;
+                connectionProgressBar.setProgress(i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
 
+                    e.printStackTrace();
+                }
+                String answer = connect.answer;
+                JsonReader reader = new JsonReader(new StringReader(answer));
+                reader.setLenient(true);
+                if (answer.contains("get_test_suites")) {
+                    answer = "{\"answer\" :\"get_test_suites\",\"status\":\"pass\",\"list\": [{\"test_name\":\"testSuite1\"}, {\"test_name\":\"testSuite2\"}]}";
+                }
+                if (answer.contains("get_test_list")) {
+                    GsonBuilder builder = new GsonBuilder();
+                    Gson gson = builder.setPrettyPrinting().serializeNulls().create();
+                    answer = answer.replace("\n", "").replace("\r","");
+
+                    JsonObject ans = new JsonParser().parseString(answer).getAsJsonObject();
+                    try (FileWriter writer = new FileWriter("src\\sample\\Getanswer.json")) {
+                        gson.toJson(ans, writer);
+                        //gson.toJson(answer, writer);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            Platform.runLater(() ->{
+                connectLabel.setText("Done");
+            });
+        }).start();
+        connectLabel.setText("In progress");
     }
+
     @FXML
-    public void initialize()  {
+    public void initialize() {
         initDate();
     }
+
     @FXML
     private void initDate() {
         commandsMap = new HashMap<String, String>() {{
