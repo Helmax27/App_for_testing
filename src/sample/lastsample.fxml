@@ -223,9 +223,9 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                       <columns>
-                        <TableColumn fx:id="selectTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" text="SELECT">
+                        <TableColumn fx:id="selectTableColumn" minWidth="20.0" prefWidth="${testTableView.width*0.1}" resizable="false" style="-fx-alignment: center;" text="SELECT">
                            <graphic>
-                              <CheckBox fx:id="selectAll" alignment="BOTTOM_LEFT" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="8.0" prefWidth="0.0" style="-fx-alignment: bottom;" text=" ">
+                              <CheckBox fx:id="selectAll" alignment="BOTTOM_LEFT" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="8.0" prefWidth="0.0" text=" ">
                                  <font>
                                     <Font name="Calibri Bold" size="12.0" />
                                  </font>

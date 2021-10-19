@@ -88,6 +88,11 @@ public class NewsampleController implements Initializable {
     public Button profile3Button;
     @FXML
     public Button profile4Button;
+
+    public void setChooseProfileLable(Label chooseProfileLable) {
+        this.chooseProfileLable = chooseProfileLable;
+    }
+
     @FXML
     public Label chooseProfileLable;
     @FXML
@@ -153,7 +158,6 @@ public class NewsampleController implements Initializable {
             if (pr.profileName.equals(activeProfile)) {
                 conType = pr.connectionType;
                 activePort = pr.port;
-
             }
         }
         ObservableList<Testlist> tabelItem = testTableView.getItems();
@@ -319,7 +323,6 @@ public class NewsampleController implements Initializable {
         timeColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("time"));
         messageColumn.setCellValueFactory(new PropertyValueFactory<MessageTable, String>("message"));
         statusTableView.setItems(messageTableData);
-
     }
 
     //Parsing a json file with Profile details
@@ -335,18 +338,18 @@ public class NewsampleController implements Initializable {
 
     private void initDate() throws FileNotFoundException {
         Gson gson = new Gson();
-        /*NewTest testlist = gson.fromJson(new FileReader("src\\sample\\Currentplaylist.json"), NewTest.class);
+        NewTest testlist = gson.fromJson(new FileReader("src\\sample\\Getanswer.json"), NewTest.class);
         for (NewTestList tl : testlist.testList) {
             testlistsData.add(new Testlist(tl.testSuit + "." + tl.testName, 0, 0, 0, tl.params.toString().substring(1, tl.params.toString().length() - 1)));
-        }*/
-        Answer testList = gson.fromJson(new FileReader("src\\sample\\Getanswer.json"), Answer.class);
+        }
+        /*Answer testList = gson.fromJson(new FileReader("src\\sample\\Getanswer.json"), Answer.class);
         List<Parameters> param = new ArrayList<Parameters>();
         for (Lists tl : testList.list) {
             for (Parameters pr: tl.parameters) {
                 param.add(pr);
             }
             testlistsData.add(new Testlist((Testlist)(tl.test_name, tl.test_description,  param)));
-        }
+        }*/
         messageTableData.add(new MessageTable("08.03.02.147", "initialized"));
         messageTableData.add(new MessageTable("08.06.38.329", "started"));
         messageTableData.add(new MessageTable("08.06.38.341", "reading"));
@@ -420,6 +423,7 @@ public class NewsampleController implements Initializable {
                     ConnectionController controller = fxmlLoader.getController();
                     controller.setPort(sr);
                     controller.setConnect(connection);
+                    controller.setPn(profileNames.get(0));
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setTitle("Connection");
                     stage.setScene(new Scene(root4, 400, 233));

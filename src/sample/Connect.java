@@ -12,6 +12,7 @@ class Connect extends Thread {
     public Connect(SerialPort serialPort) {
         this.serialPort = serialPort;
     }
+
     private void showAlert(String title, String text) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -34,7 +35,7 @@ class Connect extends Thread {
                 String s = new String(inputButes, StandardCharsets.UTF_8);
                 answer = s + "\n";
                 System.out.println(" message: " + s);
-            } catch (RuntimeException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 showAlert("Warning alert", "There is no connection to Serial port");
             }

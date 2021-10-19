@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 
+
 public class ConnectionController {
     @FXML
     public ProgressBar connectionProgressBar;
@@ -23,6 +24,12 @@ public class ConnectionController {
     public Button buttonCancelConnection;
     @FXML
     public Button buttonStartlConnection;
+
+    public void setPn(String pn) {
+        this.pn = pn;
+    }
+
+    public String pn;
 
     public void setConnectLabel(Label connectLabel) {
         this.connectLabel = connectLabel;
@@ -33,6 +40,8 @@ public class ConnectionController {
     public Connect connect;
     public SerialPort port;
     private HashMap<String, String> commandsMap;
+
+
 
     public void setPort(SerialPort port) {
         this.port = port;
@@ -56,12 +65,13 @@ public class ConnectionController {
         buttonStartlConnection.setDisable(true);
         connectionProgressBar.setProgress(0);
         buttonCancelConnection.setDisable(false);
+        //Sending commands to connect
         new Thread(() -> {
             double i = 0;
             for (String value : commandsMap.values()) {
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +82,7 @@ public class ConnectionController {
                 i += 0.25;
                 connectionProgressBar.setProgress(i);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1100);
                 } catch (InterruptedException e) {
 
                     e.printStackTrace();
@@ -80,6 +90,7 @@ public class ConnectionController {
                 String answer = connect.answer;
                 JsonReader reader = new JsonReader(new StringReader(answer));
                 reader.setLenient(true);
+                //Receiving and recording tests
                 if (answer.contains("get_test_suites")) {
                     answer = "{\"answer\" :\"get_test_suites\",\"status\":\"pass\",\"list\": [{\"test_name\":\"testSuite1\"}, {\"test_name\":\"testSuite2\"}]}";
                 }
@@ -87,11 +98,21 @@ public class ConnectionController {
                     GsonBuilder builder = new GsonBuilder();
                     Gson gson = builder.setPrettyPrinting().serializeNulls().create();
                     answer = answer.replace("\n", "").replace("\r","");
-
-                    JsonObject ans = new JsonParser().parseString(answer).getAsJsonObject();
+                    JsonObject ans = gson.fromJson (answer, JsonElement.class).getAsJsonObject();
+                    ans.remove("answer");
+                    ans.remove("status");
+                    JsonElement listE = ans.get("list");
+                    ans.remove("list");
+                    ans.addProperty("profileName", pn);
+                    ans.add("list", listE);
+                    JsonArray list = (JsonArray) ans.get("list");
+                    for (JsonElement lt: list) {
+                        lt.getAsJsonObject().remove("test_description");
+                        lt.getAsJsonObject().add("testSuit", ans.get("suite_name"));
+                    }
+                    ans.remove("suite_name");
                     try (FileWriter writer = new FileWriter("src\\sample\\Getanswer.json")) {
                         gson.toJson(ans, writer);
-                        //gson.toJson(answer, writer);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
