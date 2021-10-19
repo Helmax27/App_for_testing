@@ -337,18 +337,10 @@ public class NewsampleController implements Initializable {
     }
 
     private void initDate() throws FileNotFoundException {
-        Gson gson = new Gson();
-        NewTest testlist = gson.fromJson(new FileReader("src\\sample\\Getanswer.json"), NewTest.class);
+        /*Gson gson = new Gson();
+        NewTest testlist = gson.fromJson(new FileReader("src\\sample\\Currentplaylist.json"), NewTest.class);
         for (NewTestList tl : testlist.testList) {
             testlistsData.add(new Testlist(tl.testSuit + "." + tl.testName, 0, 0, 0, tl.params.toString().substring(1, tl.params.toString().length() - 1)));
-        }
-        /*Answer testList = gson.fromJson(new FileReader("src\\sample\\Getanswer.json"), Answer.class);
-        List<Parameters> param = new ArrayList<Parameters>();
-        for (Lists tl : testList.list) {
-            for (Parameters pr: tl.parameters) {
-                param.add(pr);
-            }
-            testlistsData.add(new Testlist((Testlist)(tl.test_name, tl.test_description,  param)));
         }*/
         messageTableData.add(new MessageTable("08.03.02.147", "initialized"));
         messageTableData.add(new MessageTable("08.06.38.329", "started"));

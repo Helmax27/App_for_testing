@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Tests {
     public String profileName;
-    public List<TestList> testList;
+    public List<TestList> list;
 
     public Tests(String profileName, List<TestList> testList) {
         this.profileName = profileName;
-        this.testList = testList;
+        this.list = testList;
     }
 
     public String getProfileName() {
@@ -19,12 +19,12 @@ public class Tests {
         this.profileName = profileName;
     }
 
-    public List<TestList> getTestList() {
-        return testList;
+    public List<TestList> getList() {
+        return list;
     }
 
-    public void setTestList(List<TestList> testList) {
-        this.testList = testList;
+    public void setList(List<TestList> list) {
+        this.list = list;
     }
 
     class TestList {
@@ -54,40 +54,40 @@ public class Tests {
     }
 
     static class Test {
-        public String testName;
-        public List<Params> params;
+        public String test_name;
+        public List<Params> parameters;
 
-        Test(String testName, List<Params> params) {
-            this.testName = testName;
-            this.params = params;
+        Test(String test_name, List<Params> parameters) {
+            this.test_name = test_name;
+            this.parameters = parameters;
         }
 
         String getTestName() {
-            return testName;
+            return test_name;
         }
 
         void setTestName(String testName) {
-            this.testName = testName;
+            this.test_name = test_name;
         }
 
-        List<Params> getParams() {
-            return params;
+        List<Params> getParameters() {
+            return parameters;
         }
 
-        void setParams(List<Params> params) {
-            this.params = params;
+        void setParameters(List<Params> parameters) {
+            this.parameters = parameters;
         }
     }
 
     class Params {
         public String param_name;
-        public String description;
-        public String value;
+        public String param_description;
+        public String param_value;
 
-        Params(String param_name, String description, String value) {
+        Params(String param_name, String param_description, String param_value) {
             this.param_name = param_name;
-            this.description = description;
-            this.value = value;
+            this.param_description = param_description;
+            this.param_value = param_value;
         }
 
         String getParam_name() {
@@ -98,26 +98,26 @@ public class Tests {
             this.param_name = param_name;
         }
 
-        String getDescription() {
-            return description;
+        String getParam_description() {
+            return param_description;
         }
 
-        void setDescription(String description) {
-            this.description = description;
+        void setParam_description(String param_description) {
+            this.param_description = param_description;
         }
 
-        String getValue() {
-            return value;
+        String getParam_value() {
+            return param_value;
         }
 
-        void setValue(String value) {
-            this.value = value;
+        void setParam_value(String param_value) {
+            this.param_value = param_value;
         }
 
 
         @Override
         public String toString() {
-            return "param_name=" + param_name + ", description=" + description + ", value=" + value ;
+            return "param_name=" + param_name + ", description=" + param_description + ", value=" + param_value;
         }
     }
 

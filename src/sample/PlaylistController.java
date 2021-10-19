@@ -9,8 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -138,11 +136,11 @@ public class PlaylistController {
             System.out.println(inTests);
             for(String test: testFromPlayList){
                 String[] testStr = test.split("\\.");
-                for (Tests.TestList tl: inTests.get(0).testList) {
+                for (Tests.TestList tl: inTests.get(0).list) {
                     if (tl.testSuit.equals(testStr[0])) {
                         for (Tests.Test ts : tl.listTests) {
-                            if (ts.testName.equals(testStr[1])) {
-                                NewTestList ntest = new NewTestList(tl.testSuit, ts.testName, ts.params);
+                            if (ts.test_name.equals(testStr[1])) {
+                                NewTestList ntest = new NewTestList(tl.testSuit, ts.test_name, ts.parameters);
                                 outTests.add(ntest);
                             }
                         }
@@ -197,9 +195,9 @@ public class PlaylistController {
         System.out.println(currentProfileName);
         for (Tests tn : availableTests) {
             if (tn.profileName.equals(currentProfileName)) {
-                for (Tests.TestList tslist : tn.testList) {
+                for (Tests.TestList tslist : tn.list) {
                     for (Tests.Test lt : tslist.listTests) {
-                        testName.add(tslist.testSuit + "." + lt.testName);
+                        testName.add(tslist.testSuit + "." + lt.test_name);
                     }
                 }
             }
@@ -215,9 +213,9 @@ public class PlaylistController {
         List<Tests.Test> listtst = new ArrayList<>();
         List<Tests.Params> paramsList = new ArrayList<>();
         for (Tests ts : test) {
-            for (Tests.TestList tslist : ts.testList) {
+            for (Tests.TestList tslist : ts.list) {
                 for (Tests.Test lt : tslist.listTests) {
-                    for (Tests.Params pr : lt.params) {
+                    for (Tests.Params pr : lt.parameters) {
                         paramsList.add(pr);
                     }
                     listtst.add(lt);
